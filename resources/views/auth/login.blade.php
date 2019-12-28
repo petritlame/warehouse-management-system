@@ -28,7 +28,7 @@
                 <div class="text-center p-t-20 p-b-20">
                     <span class="db">
 {{--                        <img src="{{asset('assets/images/logo.png')}}" alt="logo" />--}}
-                        <h2>MAGAZINA</h2>
+                        <h2>Eco AL Cleaning</h2>
                     </span>
                 </div>
                 <!-- Form -->
