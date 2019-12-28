@@ -11,7 +11,7 @@
     <!-- Favicon icon -->
     <link href="{{asset('css/app.css')}}" rel="stylesheet">
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('assets/images/favicon.png')}}">
-    <title>Matrix Template - The Ultimate Multipurpose admin template</title>
+    <title>Eco AL Cleaning - Magazina</title>
     <!-- Custom CSS -->
     <link href="{{asset('assets/libs/flot/css/float-chart.css')}}" rel="stylesheet">
     <!-- Custom CSS -->
