@@ -63,7 +63,7 @@
                     <!-- Logo text -->
                     <span class="logo-text">
                              <!-- dark Logo text -->
-                        <h2>MAGAZINA</h2>
+                        <h2>Eco AL Cleaning</h2>
 {{--                             <img src="{{asset('assets/images/logo-text.png')}}" alt="homepage" class="light-logo" />--}}
 
                         </span>
