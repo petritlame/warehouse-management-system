@@ -1,3 +1,5 @@
+var getUrl = window.location;
+var BASE_URL = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
 function delete_product(){
     if(!confirm("A jeni i sigurt te fshini kete produkt?")){
         event.preventDefault();
@@ -6,7 +8,7 @@ function delete_product(){
 
 $('.edit_product').click(function () {
     var id =  $(this).attr('data-id');
-
+        console.log(BASE_URL);
         $('#edit_emertimi').attr('disabled', true);
         $('#edit_sasia').attr('disabled', true);
         $('#edit_cmim_blerje').attr('disabled', true);
