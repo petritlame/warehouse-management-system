@@ -14,6 +14,7 @@
     <link href="{{asset('css/style.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/extra-libs/multicheck/multicheck.css')}}">
     <link href="{{asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css')}}" rel="stylesheet">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body>
@@ -29,11 +30,11 @@
             <div class="navbar-header" data-logobg="skin5">
 
                 <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="">
                     <b class="logo-icon p-l-10"></b>
                     <span class="logo-text">
-                        <h2>Eco AL Cleaning</h2>
-                        </span>
+                        <h3>Eco AL Cleaning</h3>
+                    </span>
                 </a>
                 <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="ti-more"></i></a>
             </div>
@@ -75,7 +76,7 @@
                     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account-card-details"></i><span class="hide-menu">MAGAZINA </span></a>
                         <ul aria-expanded="false" class="collapse  first-level">
                             @foreach($categories as $category)
-                                <li class="sidebar-item"><a href="{{route('magazina', ['category' => strtolower($category->emertimi)])}}" class="sidebar-link"><i class="mdi mdi-account-card-details"></i><span class="hide-menu"></span>{{$category->emertimi}}</a></li>
+                                <li class="sidebar-item"><a href="{{route('magazina', ['category' => strtolower($category->emertimi)])}}" class="sidebar-link"><i class="mdi mdi-account-card-details"></i><span class="hide-menu"> {{$category->emertimi}} </span></a></li>
                             @endforeach
                         </ul>
                     </li>
@@ -90,11 +91,11 @@
 </div>
 </div>
 <script src="{{asset('js/app.js')}}"></script>
+<script src="{{asset('js/script.js')}}"></script>
 <script src="{{asset('assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js')}}"></script>
 <script src="{{asset('assets/extra-libs/sparkline/sparkline.js')}}"></script>
 <script src="{{asset('js/waves.js')}}"></script>
 <script src="{{asset('js/sidebarmenu.js')}}"></script>
-<script src="{{asset('js/custom.min.js')}}"></script>
 <script src="{{asset('js/custom.min.js')}}"></script>
 <script src="{{asset('assets/extra-libs/multicheck/datatable-checkbox-init.js')}}"></script>
 <script src="{{asset('assets/extra-libs/multicheck/jquery.multicheck.js')}}"></script>
