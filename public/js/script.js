@@ -8,13 +8,13 @@ function delete_product(){
 
 $('.edit_product').click(function () {
     var id =  $(this).attr('data-id');
-        console.log(BASE_URL);
+
         $('#edit_emertimi').attr('disabled', true);
         $('#edit_sasia').attr('disabled', true);
         $('#edit_cmim_blerje').attr('disabled', true);
         $('#edit_cmim_shitje').attr('disabled', true);
 
-    $.get('/product/'+id)
+    $.get(BASE_URL+'/product/'+id)
         .done(function( data ) {
             var cat = data[0]["cat_id"];
             $('#edit_emertimi').attr('disabled', false);
