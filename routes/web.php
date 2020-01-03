@@ -12,8 +12,10 @@
 */
 Auth::routes();
 
-Route::get('/', 'HomeController@index');
+Route::group(['middleware' => ['auth']], function () {
+    //products
+    Route::get('/', 'ProductsController@index');
+    Route::get('/{category}', 'ProductsController@show')->name('magazina');
+    Route::post('/product/add', 'ProductsController@store')->name('add_product');
+});
 
-
-//
-//Route::get('/home', )->name('home');
