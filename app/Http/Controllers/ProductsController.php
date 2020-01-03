@@ -85,7 +85,13 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $products = DB::table('products')
+            ->join('sasia', 'products.id', '=', 'sasia.product_id')
+            ->join('categories', 'categories.id', '=', 'products.category_id')
+            ->select('products.*','products.emertimi as emri', 'sasia.sasia', 'categories.emertimi', 'categories.id as cat_id')
+            ->where('products.id', '=', $id)
+            ->get();
+        return response($products);
     }
 
     /**
@@ -95,9 +101,24 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'id' => 'required',
+            'emertimi'    => 'required',
+            'cmim_blerje' => 'required|numeric',
+            'cmim_shitje' => 'required|numeric',
+            'sasia'       => 'required'
+        ]);
+        $id =  $request->id;
+        $sasia = $request->sasia;
+        $vlera_blerje = (int)$sasia * (float)$request->cmim_blerje;
+        $vlera_shitje = (int)$sasia * (float)$request->cmim_shitje;
+
+        Products::where('id', $id)->update(array_merge($request->except('_token', 'sasia'), ['vlera_blerje' => $vlera_blerje,'vlera_shitje'=> $vlera_shitje]));
+        $insert = DB::table('sasia')->where('product_id', $id)->update(['sasia' => $sasia]);
+        return response()->json(['status' => 200, 'message' => 'Produktu u Editua']);
+
     }
 
     /**
@@ -108,6 +129,6 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        //
+            //
     }
 }

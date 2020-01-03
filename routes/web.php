@@ -16,6 +16,8 @@ Route::group(['middleware' => ['auth']], function () {
     //products
     Route::get('/', 'ProductsController@index');
     Route::get('/{category}', 'ProductsController@show')->name('magazina');
+    Route::get('/product/{id}', 'ProductsController@edit');
     Route::post('/product/add', 'ProductsController@store')->name('add_product');
+    Route::post('/product/update', 'ProductsController@update')->name('update_product');
 });
 
