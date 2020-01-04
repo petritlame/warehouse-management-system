@@ -31,7 +31,7 @@
                             <td>
                                 <p style="text-align: center">
                                     <a href="#" class="btn btn-cyan btn-sm edit_product" data-id="{{$product->id}}" data-toggle="modal" data-target="#Modal3">Edito</a>
-                                    <a href="" class="btn btn-danger btn-sm" onclick="return delete_product();">Fshi</a>
+                                    <a href="{{route('delete_product', ['id' => $product->id])}}" class="btn btn-danger btn-sm" onclick="return delete_product();">Fshi</a>
                                 </p>
                             </td>
                         </tr>
