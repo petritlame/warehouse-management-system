@@ -43,19 +43,27 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $rules = [
             'emertimi'    => 'required|unique:products',
             'cmim_blerje' => 'required|numeric',
             'cmim_shitje' => 'required|numeric',
             'sasia'       => 'required'
-        ]);
+        ];
+
+        $messages = [
+            'required'  => ':attribute nuk mund te lihet bosh',
+            'numeric'    => ':attribute nuk eshte numer',
+            'unique'    => ':attribute egziston ne databaze'
+        ];
+
+        $validatedData = $request->validate($rules, $messages);
         $sasia = $request->sasia;
         $vlera_blerje = (int)$sasia * (float)$request->cmim_blerje;
         $vlera_shitje = (int)$sasia * (float)$request->cmim_shitje;
         $product = Products::create(array_merge($request->all(), ['vlera_blerje' => $vlera_blerje,'vlera_shitje'=> $vlera_shitje]));
         if ($product->id){
             $insert = DB::table('sasia')->insert(['product_id' => $product->id, 'sasia' => $sasia]);
-            return response()->json(['status' => 200, 'message' => 'Produktu u shtua']);
+            return redirect()->back()->with('data', ['msg' => 'Produktu u shtua']);
         }
     }
 
@@ -103,13 +111,20 @@ class ProductsController extends Controller
      */
     public function update(Request $request)
     {
-        $validatedData = $request->validate([
+        $rules = [
             'id' => 'required',
             'emertimi'    => 'required',
             'cmim_blerje' => 'required|numeric',
             'cmim_shitje' => 'required|numeric',
             'sasia'       => 'required'
-        ]);
+        ];
+        $messages = [
+            'required'  => ':attribute nuk mund te lihet bosh',
+            'numeric'    => ':attribute nuk eshte numer'
+        ];
+
+        $validatedData = $request->validate($rules, $messages);
+
         $id =  $request->id;
         $sasia = $request->sasia;
         $vlera_blerje = (int)$sasia * (float)$request->cmim_blerje;
@@ -117,7 +132,7 @@ class ProductsController extends Controller
 
         Products::where('id', $id)->update(array_merge($request->except('_token', 'sasia'), ['vlera_blerje' => $vlera_blerje,'vlera_shitje'=> $vlera_shitje]));
         $insert = DB::table('sasia')->where('product_id', $id)->update(['sasia' => $sasia]);
-        return response()->json(['status' => 200, 'message' => 'Produktu u Editua']);
+        return redirect()->back()->with('data', ['msg' => 'Produkti u Editua me Sukses']);
 
     }
 
@@ -129,6 +144,10 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-            //
+        $res=Products::where('id',$id)->delete();
+        if ($res){
+            DB::table('sasia')->where('product_id', '=', $id)->delete();
+            return redirect()->back()->with('data', ['msg' => 'Produkti u Fshi me sukses']);
+        }
     }
 }
