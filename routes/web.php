@@ -30,6 +30,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/categories/edit', 'CategoriesController@destroy')->name('delete_category');
     Route::post('/categories/update', 'CategoriesController@update')->name('update_category');
 
+    //arka
+    Route::get('/arka', 'ArkaController@index')->name('arka');
 
 });
 

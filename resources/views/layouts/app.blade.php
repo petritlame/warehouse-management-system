@@ -14,6 +14,7 @@
     <link href="{{asset('css/style.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/extra-libs/multicheck/multicheck.css')}}">
     <link href="{{asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css')}}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css')}}">
     <link href="{{asset('css/toastr.min.css')}}" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
@@ -81,7 +82,7 @@
                             @endforeach
                         </ul>
                     </li>
-                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">ARKA</span></a></li>
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('arka')}}" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">ARKA</span></a></li>
                 </ul>
             </nav>
         </div>
@@ -102,9 +103,10 @@
 <script src="{{asset('assets/extra-libs/multicheck/jquery.multicheck.js')}}"></script>
 <script src="{{asset('assets/extra-libs/DataTables/datatables.min.js')}}"></script>
 <script src="{{asset('js/toastr.min.js')}}"></script>
+<script src="{{asset('assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
 <script>
     $('#zero_config').DataTable();
-
+    jQuery('.data_arka').datepicker();
 </script>
 @if (session()->has('data'))
     <script>
