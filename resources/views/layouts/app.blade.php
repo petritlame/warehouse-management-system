@@ -47,7 +47,7 @@
                             <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Kategorite</a>
+                            <a class="dropdown-item" href="{{route('categories')}}">Kategorite</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Agjenti</a>
                         </div>
