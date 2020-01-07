@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categories;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoriesController extends Controller
 {
@@ -13,7 +15,8 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        //
+        $categories = DB::table('categories')->get();
+        return view('pages.categories', ['categories' => $categories]);
     }
 
     /**
@@ -34,7 +37,19 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'emertimi'    => 'required|unique:categories',
+        ];
+
+        $messages = [
+            'required'  => ':attribute nuk mund te lihet bosh',
+            'unique'    => ':attribute egziston ne databaze'
+        ];
+        $validatedData = $request->validate($rules, $messages);
+        $categories = Categories::create($request->all());
+        if ($categories){
+            return redirect()->back()->with('data', ['msg' => 'Kategoria u shtua']);
+        }
     }
 
     /**
@@ -45,7 +60,8 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-        //
+        $categories = DB::table('categories')->where('id', '=', $id)->get();
+        return response($categories);
     }
 
     /**
@@ -63,12 +79,22 @@ class CategoriesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $rules = [
+            'emertimi'    => 'required|unique:categories',
+        ];
+
+        $messages = [
+            'required'  => ':attribute nuk mund te lihet bosh',
+            'unique'    => ':attribute egziston ne databaze'
+        ];
+
+        $validatedData = $request->validate($rules, $messages);
+        Categories::where('id', $request->id)->update(['emertimi' => $request->emertimi]);
+        return redirect()->back()->with('data', ['msg' => 'Kategoria u Editua me Sukses']);
     }
 
     /**
@@ -79,6 +105,14 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $check = DB::table('products')->where('category_id', '=', $id)->get();
+        if(count($check) > 0) {
+            return redirect()->back()->withErrors(['Kujdes, kjo kategori ka produkte ne magazine']);
+        }else{
+            $res=Categories::where('id',$id)->delete();
+            if ($res){
+                return redirect()->back()->with('data', ['msg' => 'Kategoria u Fshi me sukses']);
+            }
+        }
     }
 }

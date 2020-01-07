@@ -1,5 +1,6 @@
 var getUrl = window.location;
-var BASE_URL = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+var BASE_URL = getUrl .protocol + "//" + getUrl.host + "/";
+
 
 function delete_product(){
     if(!confirm("A jeni i sigurt te fshini kete produkt?")){
@@ -28,6 +29,20 @@ $('.edit_product').click(function () {
             $('#edit_cmim_shitje').val(data[0]['cmim_shitje']);
             $('#product_id').val(data[0]['id']);
             $('#edit_kategoria option[value='+cat+']').attr('selected','selected');
+        });
+});
+
+
+$('.edit_category').click(function () {
+    var id =  $(this).attr('data-id');
+    $('#category_name').attr('disabled', true);
+    $.get(BASE_URL+'categories/'+id)
+        .done(function( data ) {
+            $('#category_name').attr('disabled', false);
+            var emri = data[0]['emertimi'];
+            var id = data[0]['id'];
+            $('#category_name').val(emri);
+            $('#categoty_id').val(id);
         });
 });
 
