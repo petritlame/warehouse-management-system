@@ -1,6 +1,7 @@
 var getUrl = window.location;
 var BASE_URL = getUrl .protocol + "//" + getUrl.host + "/";
 
+
 function delete_product(){
     if(!confirm("A jeni i sigurt te fshini kete produkt?")){
         event.preventDefault();
@@ -30,6 +31,7 @@ $('.edit_product').click(function () {
             $('#edit_kategoria option[value='+cat+']').attr('selected','selected');
         });
 });
+
 
 $('.edit_category').click(function () {
     var id =  $(this).attr('data-id');
