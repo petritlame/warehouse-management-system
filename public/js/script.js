@@ -36,7 +36,7 @@ $('.edit_product').click(function () {
 $('.edit_category').click(function () {
     var id =  $(this).attr('data-id');
     $('#category_name').attr('disabled', true);
-    $.get(BASE_URL+'categories/'+id)
+    $.get(BASE_URL+'/categories/'+id)
         .done(function( data ) {
             $('#category_name').attr('disabled', false);
             var emri = data[0]['emertimi'];
