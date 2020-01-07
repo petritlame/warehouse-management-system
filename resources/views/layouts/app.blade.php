@@ -14,6 +14,7 @@
     <link href="{{asset('css/style.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/extra-libs/multicheck/multicheck.css')}}">
     <link href="{{asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css')}}" rel="stylesheet">
+    <link href="{{asset('css/toastr.min.css')}}" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
@@ -100,9 +101,27 @@
 <script src="{{asset('assets/extra-libs/multicheck/datatable-checkbox-init.js')}}"></script>
 <script src="{{asset('assets/extra-libs/multicheck/jquery.multicheck.js')}}"></script>
 <script src="{{asset('assets/extra-libs/DataTables/datatables.min.js')}}"></script>
+<script src="{{asset('js/toastr.min.js')}}"></script>
 <script>
     $('#zero_config').DataTable();
+
 </script>
+@if (session()->has('data'))
+    <script>
+        var data = "{{session('data')['msg']}}";
+        notifySuccess(data)
+    </script>
+@endif
+@if ($errors->any())
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <script>
+                var data = "{{ $error }}";
+                notifyError(data)
+            </script>
+        @endforeach
+    @endif
+@endif
 </body>
 
 </html>
