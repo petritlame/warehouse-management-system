@@ -90,6 +90,6 @@ function notifyError(data) {
 
 $('#changeMonth').click(function() {
     var month = $( "#monthPicker option:selected" ).val();
-    var redirectURL = BASE_URL + '/' +month;
+    var redirectURL = BASE_URL + '/arka/' +month;
     window.location.href = redirectURL;
 });
