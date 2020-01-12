@@ -32,6 +32,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     //arka
     Route::get('/arka', 'ArkaController@index')->name('arka');
+    Route::post('/arka/add', 'ArkaController@store')->name('add_arka');
+    Route::get('/arka/{month}', 'ArkaController@show')->name('show_arka');
 
 });
 

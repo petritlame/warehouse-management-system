@@ -15,13 +15,13 @@ class CreateArkaTable extends Migration
     {
         Schema::create('arka', function (Blueprint $table) {
             $table->increments('id');
-            $table->dateTime('data');
+            $table->text('data');
             $table->integer('nr_arketimi');
             $table->integer('nr_pagese');
-            $table->longText('shpjegmi');
+            $table->longText('shpjegmi')->nullable();
             $table->float('hyrjet');
             $table->float('daljet');
-            $table->float('gjendja');
+            $table->unsignedInteger('user_id');
             $table->timestamps();
         });
     }
