@@ -65,7 +65,7 @@ class ArkaController extends Controller
                 'nr_pagese' => $request->nr_pagese,
                 'shpjegmi'=> $request->shpjegmi,
                 'hyrjet'=> $request->hyrjet,
-                'daljet' => $request->hyrjet,
+                'daljet' => $request->daljet,
                 'user_id' => Auth::id()
             ]
         );
