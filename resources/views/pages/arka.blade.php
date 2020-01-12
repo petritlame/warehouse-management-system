@@ -2,9 +2,22 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">ARKA</h5>
+            <select class="form-control" style="width: 20%;position: absolute;left: 165px;top: 12px;" id="monthPicker" name="monthPicker">
+                <?php for ($i = 0; $i < 12; ) {
+                    $date_str = date('M', strtotime("+ ".$i++." months"));
+                    $nowMonth = date('m');
+                    if (!request()->route('month')){
+                        $checkec = ($nowMonth == $i)? 'checked="checked"': '';
+                    }else{
+                        $checkec = (request()->route('month') == $i)? 'checked="checked"': '';
+                    }
+                    echo "<option value=".$i." $checkec>".$date_str ." - ".\Carbon\Carbon::now()->format('Y')."</option>";
+                    } ?>
+            </select>
+            <a href="javascript:void(0)" class="btn btn-success btn-sm" id="changeMonth" style="position: absolute;left: 400px;top: 15px;">Ndrysho</a>
+            <h5 class="card-title" style="width: 13%;">ARKA - {{ date('M', mktime(0, 0, 0, request()->route('month'), 10))." ". date('Y') }}</h5>
             <a href="javascript:void(0)" data-toggle="modal" data-target="#Modal2" class="btn btn-success btn-sm" style="margin-left: 10px;margin-bottom: 20px;margin-top: 6px;">Shto +</a>
-            <h4 style="float: right">GJENDJA: 51558.255</h4>
+            <h4 style="float: right">GJENDJA: {{(float)$gjendja}}</h4>
             <div class="table-responsive">
                 <table id="zero_config" class="table table-striped table-bordered">
                     <thead>
@@ -19,23 +32,17 @@
                     </tr>
                     </thead>
                     <tbody>
-{{--                    @foreach($products as $product)--}}
-{{--                        <tr>--}}
-{{--                            <td>{{$product->emri}}</td>--}}
-{{--                            <td>{{$product->sasia}}</td>--}}
-{{--                            <td>{{$product->cmim_blerje}}</td>--}}
-{{--                            <td>{{$product->cmim_shitje}}</td>--}}
-{{--                            <td>{{$product->vlera_blerje}}</td>--}}
-{{--                            <td>{{$product->vlera_shitje}}</td>--}}
-{{--                            <td>{{($product->vlera_shitje) - ($product->vlera_blerje)}}</td>--}}
-{{--                            <td>--}}
-{{--                                <p style="text-align: center">--}}
-{{--                                    <a href="#" class="btn btn-cyan btn-sm edit_product" data-id="{{$product->id}}" data-toggle="modal" data-target="#Modal3">Edito</a>--}}
-{{--                                    <a href="{{route('delete_product', ['id' => $product->id])}}" class="btn btn-danger btn-sm" onclick="return delete_product();">Fshi</a>--}}
-{{--                                </p>--}}
-{{--                            </td>--}}
-{{--                        </tr>--}}
-{{--                    @endforeach--}}
+                    @foreach($records as $record)
+                        <tr>
+                            <td>{{$record->id}}</td>
+                            <td>{{$record->data}}</td>
+                            <td>{{$record->nr_arketimi}}</td>
+                            <td>{{$record->nr_pagese}}</td>
+                            <td>{{$record->shpjegmi}}</td>
+                            <td style="background-color: #00ca0052">{{$record->hyrjet}}</td>
+                            <td style="background-color: #ff00006b">{{($record->daljet)}}</td>
+                        </tr>
+                    @endforeach
                     </tbody>
                     <tfoot>
                     <tr>
@@ -57,19 +64,19 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Shto Produkt ne Magazine</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Shto Transaksion ne Arke</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal" action="" method="post">
+                    <form class="form-horizontal" action="{{route('add_arka')}}" method="post">
                         @csrf
                         <div class="card-body">
                             <div class="form-group row">
                                 <label for="name" class="col-sm-3 text-right control-label col-form-label">Data</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control data_arka" placeholder="mm/dd/yyyy">
+                                    <input type="text" class="form-control data_arka" name="data" id="data" placeholder="dd/mm/yyyy">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -88,7 +95,7 @@
                             <div class="form-group row">
                                 <label for="address" class="col-sm-3 text-right control-label col-form-label">SHPJEGIMI</label>
                                 <div class="col-sm-9">
-                                    <textarea class="form-control" placeholder="SHPJEGIMI"></textarea>
+                                    <textarea class="form-control" name="shpjegmi" id="shpjegmi" placeholder="SHPJEGIMI"></textarea>
                                 </div>
                             </div>
 
@@ -161,9 +168,6 @@
                                 <label for="address" class="col-sm-3 text-right control-label col-form-label">Vlera Shitje</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" id="edit_kategoria" name="category_id">
-{{--                                        @foreach($categories as $cat)--}}
-{{--                                            <option value="{{$cat->id}}">{{$cat->emertimi}}</option>--}}
-{{--                                        @endforeach--}}
                                     </select>
                                 </div>
                             </div>

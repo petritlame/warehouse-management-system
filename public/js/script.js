@@ -87,3 +87,9 @@ function notifyError(data) {
         "hideMethod": "fadeOut"
     }
 }
+
+$('#changeMonth').click(function() {
+    var month = $( "#monthPicker option:selected" ).val();
+    var redirectURL = BASE_URL + '/' +month;
+    window.location.href = redirectURL;
+});
