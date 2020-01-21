@@ -19,7 +19,7 @@
                             <td>
                                 <p style="text-align: center">
                                     <a href="#" class="btn btn-cyan btn-sm edit_category" data-id="{{$category->id}}" data-toggle="modal" data-target="#categoriesModalEdit">Edito</a>
-                                    <a href="{{route('delete_category', ['id' => $category->id])}}" class="btn btn-danger btn-sm" onclick="return delete_product();">Fshi</a>
+                                    <a href="{{route('delete_category', ['id' => $category->id])}}" class="btn btn-danger btn-sm" onclick="return delete_product('kategori');">Fshi</a>
                                 </p>
                             </td>
                         </tr>
