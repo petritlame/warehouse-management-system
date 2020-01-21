@@ -51,7 +51,9 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{route('categories')}}">Kategorite</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Agjenti</a>
+                            <a class="dropdown-item" href="{{route('agents')}}">Agjenti</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{route('makinat')}}">Makinat</a>
                         </div>
                     </li>
                 </ul>
@@ -83,6 +85,7 @@
                         </ul>
                     </li>
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('arka')}}" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">ARKA</span></a></li>
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('makina_produkte')}}" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">MAKINAT</span></a></li>
                 </ul>
             </nav>
         </div>

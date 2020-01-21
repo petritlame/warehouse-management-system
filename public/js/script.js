@@ -2,11 +2,12 @@ var getUrl = window.location;
 var BASE_URL = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
 
 
-function delete_product(){
-    if(!confirm("A jeni i sigurt te fshini kete produkt?")){
+function delete_product(emri){
+    if(!confirm("A jeni i sigurt te fshini kete "+emri+" ?")){
         event.preventDefault();
     }
 }
+
 
 $('.edit_product').click(function () {
     var id =  $(this).attr('data-id');
@@ -43,6 +44,23 @@ $('.edit_category').click(function () {
             var id = data[0]['id'];
             $('#category_name').val(emri);
             $('#categoty_id').val(id);
+        });
+});
+
+$('.edit_agent').click(function () {
+    var id =  $(this).attr('data-id');
+    $('#edit_emri').attr('disabled', true);
+    $('#edit_mbiemri').attr('disabled', true);
+    $.get(BASE_URL+'/agent/'+id)
+        .done(function( data ) {
+            $('#edit_emri').attr('disabled', false);
+            $('#edit_mbiemri').attr('disabled', false);
+            var emri = data[0]['emri'];
+            var mbiemri = data[0]['mbiemri'];
+            var id = data[0]['id'];
+            $('#edit_emri').val(emri);
+            $('#edit_mbiemri').val(mbiemri);
+            $('#adent_id').val(id);
         });
 });
 

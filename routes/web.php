@@ -35,5 +35,23 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/arka/add', 'ArkaController@store')->name('add_arka');
     Route::get('/arka/{month}', 'ArkaController@show')->name('show_arka');
 
+    //agjenti
+    Route::get('/agents', 'AgentController@index')->name('agents');
+    Route::post('/agent/add', 'AgentController@store')->name('add_agent');
+    Route::get('/agent/{id}', 'AgentController@show')->name('show_agent');
+    Route::post('/agent/update', 'AgentController@update')->name('update_agent');
+    Route::get('/agent/delete/{id}', 'AgentController@destroy')->name('delete_agent');
+
+    //makinat
+    Route::get('/makinat', 'MakinaController@index')->name('makinat');
+    Route::post('/makina/add', 'MakinaController@store')->name('add_makina');
+    Route::get('/makina/delete/{id}', 'MakinaController@destroy')->name('delete_makina');
+
+    //makinat produkte
+    Route::get('/makinat/produkte', function (){
+        return view('pages.carProducts');
+    })->name('makina_produkte');
+
+
 });
 

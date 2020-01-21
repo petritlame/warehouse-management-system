@@ -102,14 +102,14 @@
                             <div class="form-group row">
                                 <label for="address" class="col-sm-3 text-right control-label col-form-label">Hyrjet</label>
                                 <div class="col-sm-9">
-                                    <input type="number" step="0.01" class="form-control" id="hyrjet" name="hyrjet" placeholder="Hyrjet">
+                                    <input type="number" value="0.00" step="0.01" class="form-control" id="hyrjet" name="hyrjet" placeholder="Hyrjet">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="address" class="col-sm-3 text-right control-label col-form-label">Daljet</label>
                                 <div class="col-sm-9">
-                                    <input type="number" step="0.01" class="form-control" id="daljet" name="daljet" placeholder="Daljet">
+                                    <input type="number" value="0.00" step="0.01" class="form-control" id="daljet" name="daljet" placeholder="Daljet">
                                 </div>
                             </div>
 
