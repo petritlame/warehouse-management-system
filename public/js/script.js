@@ -1,5 +1,5 @@
 var getUrl = window.location;
-var BASE_URL = getUrl .protocol + "//" + getUrl.host + "";
+var BASE_URL = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
 
 
 function delete_product(emri){
