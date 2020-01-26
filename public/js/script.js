@@ -1,5 +1,5 @@
 var getUrl = window.location;
-var BASE_URL = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+var BASE_URL = getUrl .protocol + "//" + getUrl.host + "";
 
 
 function delete_product(emri){
@@ -17,7 +17,7 @@ $('.edit_product').click(function () {
         $('#edit_cmim_blerje').attr('disabled', true);
         $('#edit_cmim_shitje').attr('disabled', true);
 
-    $.get(BASE_URL+'/product/'+id)
+    $.get(BASE_URL+'/show_product/'+id)
         .done(function( data ) {
             var cat = data[0]["cat_id"];
             $('#edit_emertimi').attr('disabled', false);
@@ -62,6 +62,94 @@ $('.edit_agent').click(function () {
             $('#edit_mbiemri').val(mbiemri);
             $('#adent_id').val(id);
         });
+});
+
+$('#category_select').change(function () {
+   var category_id = $(this).val();
+    var dropdown = $("#product_select");
+    dropdown.empty()
+        .append('<option disabled selected>Zgjidh Produktin</option>');
+    dropdown.attr('disabled', true);
+    $.get(BASE_URL+'/products/makina/category/'+category_id)
+            .done(function( data ) {
+                dropdown.attr('disabled', false);
+                $.each(data, function(i, item) {
+                    dropdown.append($("<option />").val(item.id).text(item.emertimi));
+                });
+        });
+});
+
+
+
+$(document).on('click', '.shto_ne_makine', function() {
+    var dataId = $(this).attr('data-id');
+    var array = dataId.split(",");
+    var itemId = array[0];
+    var productId = array[1];
+    $('#shto_product_id').val(productId);
+    $('#shto_item_id').val(itemId);
+
+});
+
+$(document).on('click', '.hiq_nga_makine', function() {
+    var dataId = $(this).attr('data-id');
+    var array = dataId.split(",");
+    var itemId = array[0];
+    var productId = array[1];
+    $('#hiq_product_id').val(productId);
+    $('#hiq_item_id').val(itemId);
+});
+
+$('#makina').change(function () {
+        getItems();
+});
+
+$('#invoiceDate').change(function () {
+        getItems();
+});
+
+function getItems() {
+    var makinaId = $('#makina').val();
+    var data = $('#invoiceDate').val();
+    if (makinaId !== null && JSON.stringify(data) !== 'null') {
+        $('#generateInvoice').removeClass('disabled');
+    }
+    var html = '';
+    $('#carProductsBody').html('<tr class="odd"><td valign="top" colspan="8" class="dataTables_empty">Prisni...</td></tr>');
+    $.get(BASE_URL+'/products/makina/'+makinaId+'?data='+data)
+        .done(function( data ) {
+            if(data.length > 0) {
+                $.each(data, function (i, item) {
+                    var color = (item.status !== 0) ? '#00ca0052' : '#ff00006b';
+                    html = html + '<tr role="row" class="odd">' +
+                        '<td class="sorting_1">' + item.id + '</td>' +
+                        '<td>' + item.data + '</td>' +
+                        '<td>' + item.emertimi + '</td>' +
+                        '<td>' + item.targa + '</td>' +
+                        '<td>' + item.emri + ' ' + item.mbiemri + '</td>' +
+                        '<td>' + item.sasia + '</td>' +
+                        '<td style="background-color: ' + color + '">IN</td>' +
+                        '<td>' +
+                        '<p style="text-align: center">' +
+                        '<a href="#" class="btn btn-cyan btn-sm shto_ne_makine" data-id="'+item.id+', '+item.product_id+'" data-toggle="modal" data-target="#carProductAdd">+</a>' +
+                        '<a href="#" class="btn btn-cyan btn-sm hiq_nga_makine" data-id="'+item.id+', '+item.product_id+'" data-toggle="modal" data-target="#carProductRemove">-</a>' +
+                        '<a href="'+BASE_URL+'/product/makina/delete/'+item.id+'" class="btn btn-danger btn-sm" onclick="return delete_product(`produkt`);">Hiqe</a>' +
+                        '</p>' +
+                        '</td>';
+                });
+                $('#carProductsBody').html(html)
+            }else{
+                $('#carProductsBody').empty();
+                $('#carProductsBody').html('<tr class="odd"><td valign="top" colspan="8" class="dataTables_empty">No data available in table</td></tr>');
+            }
+        });
+}
+
+$('#generateInvoice').click(function () {
+    var makinaId = $('#makina').val();
+    var data = $('#invoiceDate').val();
+    var url = BASE_URL+'/product/makina/invoice?data='+data+'&carId='+makinaId;
+    window.location.href=url;
 });
 
 function notifySuccess(data) {

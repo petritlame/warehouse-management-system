@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -85,7 +84,7 @@
                         </ul>
                     </li>
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('arka')}}" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">ARKA</span></a></li>
-                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('makina_produkte')}}" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">MAKINAT</span></a></li>
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('products')}}" aria-expanded="false"><i class="mdi mdi-truck"></i><span class="hide-menu">MAKINAT</span></a></li>
                 </ul>
             </nav>
         </div>
@@ -110,6 +109,7 @@
 <script>
     $('#zero_config').DataTable();
     jQuery('.data_arka').datepicker();
+    jQuery('.makina_data').datepicker();
 </script>
 @if (session()->has('data'))
     <script>
