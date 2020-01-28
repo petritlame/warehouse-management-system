@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Agents;
+use App\Models\Makinat;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -109,5 +111,45 @@ class AgentController extends Controller
     {
         Agents::destroy($id);
         return redirect()->back()->with('data', ['msg' => 'Agjenti u Fshi me Sukses']);
+    }
+
+    public function singleAgent($id){
+        $agentTotal = 0;
+        $agent = Agents::where('id', $id)->first();
+        $invoiceItem = DB::table('invoices_item')->where(['agent_id' => $agent->id, 'invoice_id' => null])->get();
+        $invoices = DB::table('invoice')->where(['agent_id' => $agent->id])->get();
+        foreach ($invoices as $invoice){
+            $agentTotal = $agentTotal + $invoice->total;
+        }
+        return view('pages.singleAgent')->with([
+            'agentName' => $agent->emri.' '.$agent->mbiemri,
+            'invoiceItem' => $invoiceItem,
+            'agent_id' => $agent->id,
+            'invoices' => $invoices,
+            'agentTotal' => (float)$agentTotal
+        ]);
+    }
+
+    public function generateInvoice($id){
+        $date = date('d-m-Y');
+        $agent = Agents::where('id', $id)->first();
+        $agjenti = $agent->emri .' '. $agent->mbiemri;
+        $makina = Makinat::where('agent_id', $agent->id)->first();
+        $total = 0;
+        $invoiceItem = DB::table('invoices_item')->where(['agent_id' => $id])->get();
+        foreach ($invoiceItem as $item){
+            $total = $total + $item->total;
+        }
+        $uniqueId = uniqid();
+        $flieName = $date.'-'.$agent->emri.'-'.$uniqueId.'-fatura.pdf';
+        $invoice = DB::table('invoice')->insertGetId(['data' => $date, 'agent_id' => $agent->id, 'makina_id' => $makina->id, 'total' => $total, 'invoice' => $flieName]);
+        foreach ($invoiceItem as $item){
+            DB::table('invoices_item')->where(['id' => $item->id])->update(['invoice_id' => $invoice]);
+        }
+
+        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);
+        $pdf->loadView('invoices.salesInvoice', ['data' => $invoiceItem, 'date' => $date, 'agjenti' => $agjenti, 'total'=>$total]);
+        $pdf->save(public_path().'/invoices/salesInvoices/'.$flieName);
+        return redirect()->back()->with('data', ['msg' => 'Fatura u Gjenerua me Sukses']);
     }
 }

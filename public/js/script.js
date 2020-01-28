@@ -128,11 +128,11 @@ function getItems() {
                         '<td>' + item.targa + '</td>' +
                         '<td>' + item.emri + ' ' + item.mbiemri + '</td>' +
                         '<td>' + item.sasia + '</td>' +
-                        '<td style="background-color: ' + color + '">IN</td>' +
                         '<td>' +
                         '<p style="text-align: center">' +
                         '<a href="#" class="btn btn-cyan btn-sm shto_ne_makine" data-id="'+item.id+', '+item.product_id+'" data-toggle="modal" data-target="#carProductAdd">+</a>' +
                         '<a href="#" class="btn btn-cyan btn-sm hiq_nga_makine" data-id="'+item.id+', '+item.product_id+'" data-toggle="modal" data-target="#carProductRemove">-</a>' +
+                        '<a href="#" class="btn btn-success btn-sm dalje" id="dalje_invoice" data-id="'+item.id+'" data-toggle="modal" data-target="#carPassToInvoice">Dalje</a>'+
                         '<a href="'+BASE_URL+'/product/makina/delete/'+item.id+'" class="btn btn-danger btn-sm" onclick="return delete_product(`produkt`);">Hiqe</a>' +
                         '</p>' +
                         '</td>';
@@ -150,6 +150,11 @@ $('#generateInvoice').click(function () {
     var data = $('#invoiceDate').val();
     var url = BASE_URL+'/product/makina/invoice?data='+data+'&carId='+makinaId;
     window.location.href=url;
+});
+
+$('#dalje_invoice').click(function () {
+    var id = $(this).attr('data-id');
+    $('#product_invoice').val(id);
 });
 
 function notifySuccess(data) {

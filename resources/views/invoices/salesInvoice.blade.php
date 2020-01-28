@@ -111,7 +111,7 @@
                         </td>
 
                         <td style="text-align: right">
-                            Numri Fatures #: ___________
+                            Numri Fatures #: ______
                             <br> Data: {{$date}}
 
                         </td>
@@ -131,7 +131,7 @@
                             </td>
 
                             <td style="text-align: right">
-                                <b>Fature Shoqeruse</b>
+                                <b>Fature Shitje</b>
                                 <br> {{$agjenti}}
                                 <br> info@ecocleaning.com
                             </td>
@@ -152,38 +152,47 @@
             </td>
 
             <td>
-                Cmimi per njesi
+                Cmimi Blerje
             </td>
 
             <td>
-                Vlera
+                Cmimi Shitje
+            </td>
+
+            <td>
+                Vlera Shitje
             </td>
         </tr>
-@foreach($data as $item)
-        <tr class="item">
-            <td>
-               {{$item->product_name}}
-            </td>
+        @foreach($data as $item)
+            <tr class="item">
+                <td>
+                    {{$item->product_name}}
+                </td>
 
-            <td>
-                {{$item->quantity}}
-            </td>
+                <td>
+                    {{$item->sasia}}
+                </td>
 
-            <td style="text-align : right">
-                {{$item->price}}
-            </td>
+                <td style="text-align : right">
+                    {{$item->cmim_blerje}}
+                </td>
 
-            <td style="text-align : right">
-                {{$item->price * $item->quantity}}
-            </td>
-        </tr>
-@endforeach
+                <td style="text-align : right">
+                    {{$item->cmim_shitje}}
+                </td>
+
+                <td style="text-align : right">
+                    {{$item->cmim_shitje * $item->sasia}}
+                </td>
+            </tr>
+        @endforeach
         <tr class="total">
             <td></td>
             <td></td>
             <td></td>
+            <td></td>
             <td style="text-align : right">
-                Totali: {{$total}}
+                Totali: <b>{{$total}}</b>
             </td>
         </tr>
     </table>

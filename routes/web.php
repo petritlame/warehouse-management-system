@@ -39,8 +39,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/agents', 'AgentController@index')->name('agents');
     Route::post('/agent/add', 'AgentController@store')->name('add_agent');
     Route::get('/agent/{id}', 'AgentController@show')->name('show_agent');
+    Route::get('/agent/show/{id}', 'AgentController@singleAgent')->name('singleAgent');
     Route::post('/agent/update', 'AgentController@update')->name('update_agent');
     Route::get('/agent/delete/{id}', 'AgentController@destroy')->name('delete_agent');
+    Route::get('/agent/generate_invoice/{id}', 'AgentController@generateInvoice')->name('generateAgentInvoice');
 
     //makinat
     Route::get('/makinat', 'MakinaController@index')->name('makinat');
@@ -52,12 +54,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/products/makina/category/{id}', 'CarProductsController@productByCategory');
     Route::get('/products/makina/{id}', 'CarProductsController@showCar')->name('add_products');
     Route::post('/product/makina/add', 'CarProductsController@store')->name('add_products');
-    Route::post('/product/makina/update', 'CarProductsController@update')->name('update_products');
+    Route::post('/product/makina/update/', 'CarProductsController@updateSasia')->name('update_products');
     Route::get('/product/makina/delete/{id}', 'CarProductsController@destroy')->name('delete_products');
     Route::get('/product/makina/delete/{id}', 'CarProductsController@destroy')->name('delete_products');
     Route::get('/product/makina/invoice', 'CarProductsController@generateInvoice')->name('generateInvoice');
-
-
-
+    Route::post('/product/makina/invoice_item/', 'CarProductsController@addInvoiceItem')->name('addInvoiceItem');
 });
 
