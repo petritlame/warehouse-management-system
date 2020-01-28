@@ -26,7 +26,6 @@
                         <th>Makina ID</th>
                         <th>Agjenti</th>
                         <th>Sasia</th>
-                        <th>Status</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -39,11 +38,11 @@
                             <td>{{$carProduct->targa}}</td>
                             <td>{{$carProduct->emri}} {{$carProduct->mbiemri}}</td>
                             <td>{{$carProduct->sasia}}</td>
-                            <td style="{{($carProduct->status == 0) ? 'background-color: #ff00006b' : 'background-color: #00ca0052'}}">{{($carProduct->status == 0) ? 'IN' : 'OUT'}}</td>
                             <td>
                                 <p style="text-align: center">
                                     <a href="#" class="btn btn-cyan btn-sm shto_ne_makine" data-id="{{$carProduct->id}},{{$carProduct->product_id}}" data-toggle="modal" data-target="#carProductAdd">+</a>
                                     <a href="#" class="btn btn-cyan btn-sm hiq_nga_makine" data-id="{{$carProduct->id}},{{$carProduct->product_id}}" data-toggle="modal" data-target="#carProductRemove">-</a>
+                                    <a href="#" class="btn btn-success btn-sm dalje" id="dalje_invoice" data-id="{{$carProduct->id}}" data-toggle="modal" data-target="#carPassToInvoice">Dalje</a>
                                     <a href="{{route('delete_products', ['id' => $carProduct->id])}}" class="btn btn-danger btn-sm" onclick="return delete_product('produkt');">Hiqe</a>
                                 </p>
                             </td>
@@ -58,7 +57,6 @@
                         <th>Makina ID</th>
                         <th>Agjenti</th>
                         <th>Sasia</th>
-                        <th>Status</th>
                         <th></th>
                     </tr>
                     </tfoot>
@@ -146,10 +144,11 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal" action="{{route('update_products')}}/?type=in" method="post">
+                    <form class="form-horizontal" action="{{route('update_products')}}" method="post">
                         @csrf
                         <input type="hidden" id="shto_product_id" name="shto_product_id">
                         <input type="hidden" id="shto_item_id" name="shto_item_id">
+                        <input type="hidden" id="type" name="type" value="in">
                         <div class="card-body">
                             <div class="form-group row">
                                 <label for="name" class="col-sm-3 text-right control-label col-form-label">Sasia</label>
@@ -178,10 +177,11 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal" action="{{route('update_products')}}/?type=out" method="post">
+                    <form class="form-horizontal" action="{{route('update_products')}}" method="post">
                         @csrf
                         <input type="hidden" id="hiq_product_id" name="hiq_product_id">
                         <input type="hidden" id="hiq_item_id" name="hiq_item_id">
+                        <input type="hidden" id="type" name="type" value="out">
                         <div class="card-body">
                             <div class="form-group row">
                                 <label for="name" class="col-sm-3 text-right control-label col-form-label">Sasia</label>
@@ -199,4 +199,36 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="carPassToInvoice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Shto Produktin si te shitur</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="{{route('addInvoiceItem')}}" method="post">
+                        @csrf
+                        <input type="hidden" id="product_invoice" name="product_id">
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label for="name" class="col-sm-3 text-right control-label col-form-label">Sasia</label>
+                                <div class="col-sm-9">
+                                    <input type="number" class="form-control" id="sasia" name="sasia" placeholder="Sasia">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">Shto</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Mbyll</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Agents;
 use App\Models\CarProducts;
 use App\Models\Categories;
 use App\Models\Makinat;
+use App\Models\Products;
 use Barryvdh\DomPDF\Facade as PDF;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -148,7 +151,7 @@ class CarProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function updateSasia(Request $request)
     {
         $type = $request->type;
         if ($type == 'in'){
@@ -236,5 +239,51 @@ class CarProductsController extends Controller
         $pdf = PDF::loadView('invoices.carInvoice', ['data' => $carProducts, 'date' => $date, 'agjenti' => $agjenti, 'total'=>$total]);
         $pdf->save(public_path().'/invoices/'.$flieName);
         return $pdf->stream(public_path().'/invoices/'.$flieName);
+    }
+
+    function addInvoiceItem(Request $request) {
+
+        $id = $request->product_id;
+        $rules = [
+            'sasia' => 'required|numeric'
+        ];
+        $messages = [
+            'required'  => ':attribute nuk mund te lihet bosh',
+            'numeric'    => ':attribute nuk eshte numer',
+            'unique'    => ':attribute egziston ne databaze'
+        ];
+        $validatedData = $request->validate($rules, $messages);
+
+        $item = CarProducts::where('id', $id)->first();
+        if ($item->sasia < $request->sasia){
+            return redirect()->back()->withErrors(['Kujdes, Nuk sasia me e madhe se gjendja ne makine']);
+        }
+        $product = Products::where('id', $item->product_id)->first();
+        $makinat = Makinat::where('id', $item->makina_id)->first();
+        $agent = Agents::where('id', $makinat->agent_id)->first();
+
+        $dataArray = [
+            'makina_id' => $item->makina_id,
+            'product_id' => $item->product_id,
+            'data' => $item->data,
+            'product_name' => $product->emertimi,
+            'agent_name' => $agent->emri.' '.$agent->mbiemri,
+            'agent_id' => $agent->id,
+            'sasia' => $request->sasia,
+            'cmim_blerje' => $product->cmim_blerje,
+            'cmim_shitje' => $product->cmim_shitje,
+            'total' => $product->cmim_shitje * $request->sasia
+        ];
+         $invoiceItem = DB::table('invoices_item')->where(['agent_id' => $agent->id, 'invoice_id' => null, 'product_id' => $item->product_id, 'makina_id'=>$item->makina_id])->get();
+         if ($invoiceItem->count() > 0){
+             $insert = DB::table('invoices_item')->where(['agent_id' => $agent->id, 'invoice_id' => null, 'product_id' => $item->product_id, 'makina_id'=>$item->makina_id])->increment('sasia', $request->sasia);
+             DB::table('invoices_item')->where(['agent_id' => $agent->id, 'invoice_id' => null, 'product_id' => $item->product_id, 'makina_id'=>$item->makina_id])->update(['total' => DB::raw('sasia * cmim_shitje')]);
+         }else{
+             $insert = DB::table('invoices_item')->insert($dataArray);
+         }
+         if ($insert){
+             DB::table('car_products')->where('id', '=', $id)->decrement('sasia', $request->sasia);
+             return redirect()->back()->with('data', ['msg' => 'Produkti u shtua tek lista per faturim te agjentit']);
+         }
     }
 }
