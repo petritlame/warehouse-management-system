@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Agents;
 use App\Models\Makinat;
+use App\User;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AgentController extends Controller
 {
@@ -41,7 +44,8 @@ class AgentController extends Controller
     {
         $rules = [
             'emri'    => 'required',
-            'mbiemri'    => 'required'
+            'mbiemri'    => 'required',
+            'password'    => 'required'
         ];
 
         $messages = [
@@ -49,7 +53,14 @@ class AgentController extends Controller
             'unique'    => ':attribute egziston ne databaze'
         ];
         $validatedData = $request->validate($rules, $messages);
-        $agents = Agents::create($request->all());
+
+        $user = new User();
+        $user->password = Hash::make($request->password);
+        $user->email = strtolower($request->emri).'@ecoalcleaning.al';
+        $user->name = $request->emri;
+        $user->save();
+
+        $agents = Agents::create(array_merge($request->all(), ['user_id' => $user->id]));
         if ($agents){
             return redirect()->back()->with('data', ['msg' => 'Agjenti u shtua']);
         }
@@ -109,25 +120,44 @@ class AgentController extends Controller
      */
     public function destroy($id)
     {
+        $agent = Agents::where('id', $id)->first();
+        User::destroy($agent->user_id);
         Agents::destroy($id);
         return redirect()->back()->with('data', ['msg' => 'Agjenti u Fshi me Sukses']);
     }
 
     public function singleAgent($id){
-        $agentTotal = 0;
-        $agent = Agents::where('id', $id)->first();
-        $invoiceItem = DB::table('invoices_item')->where(['agent_id' => $agent->id, 'invoice_id' => null])->get();
-        $invoices = DB::table('invoice')->where(['agent_id' => $agent->id])->get();
-        foreach ($invoices as $invoice){
-            $agentTotal = $agentTotal + $invoice->total;
+        if(Auth::user()->type == 1) {
+            $agentTotal = 0;
+            $agent = Agents::where('id', $id)->first();
+            $invoiceItem = DB::table('invoices_item')->where(['agent_id' => $agent->id, 'invoice_id' => null])->get();
+            $invoices = DB::table('invoice')->where(['agent_id' => $agent->id])->get();
+            foreach ($invoices as $invoice) {
+                $agentTotal = $agentTotal + $invoice->total;
+            }
+            return view('pages.singleAgent')->with([
+                'agentName' => $agent->emri . ' ' . $agent->mbiemri,
+                'invoiceItem' => $invoiceItem,
+                'agent_id' => $agent->id,
+                'invoices' => $invoices,
+                'agentTotal' => (float)$agentTotal
+            ]);
+        }else{
+            $agentTotal = 0;
+            $agent = Agents::where('user_id', Auth::id())->first();
+            $invoiceItem = DB::table('invoices_item')->where(['agent_id' => $agent->id, 'invoice_id' => null])->get();
+            $invoices = DB::table('invoice')->where(['agent_id' => $agent->id])->get();
+            foreach ($invoices as $invoice) {
+                $agentTotal = $agentTotal + $invoice->total;
+            }
+            return view('pages.singleAgent')->with([
+                'agentName' => $agent->emri . ' ' . $agent->mbiemri,
+                'invoiceItem' => $invoiceItem,
+                'agent_id' => $agent->id,
+                'invoices' => $invoices,
+                'agentTotal' => (float)$agentTotal
+            ]);
         }
-        return view('pages.singleAgent')->with([
-            'agentName' => $agent->emri.' '.$agent->mbiemri,
-            'invoiceItem' => $invoiceItem,
-            'agent_id' => $agent->id,
-            'invoices' => $invoices,
-            'agentTotal' => (float)$agentTotal
-        ]);
     }
 
     public function generateInvoice($id){
