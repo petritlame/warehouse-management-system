@@ -3,8 +3,10 @@
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">{{$agentName}}</h5>
+            @if(Auth::user()->type == 1)
             <a href="{{route('generateAgentInvoice', ['id' => $agent_id])}}" class="btn btn-success btn-sm {{ ($invoiceItem->count() > 0) ? '' : 'disabled' }}" id="generateAgentInvoice" style="position: absolute;left: 200px;top: 55px;">Gjenero Fature</a>
             <a href="javascript:void(0)" data-toggle="modal" data-target="#withoutInvoice" class="btn btn-cyan btn-sm {{ ($invoiceItem->count() > 0) ? '' : 'disabled' }}" style="margin-left: 10px;margin-bottom: 20px;margin-top: 6px;">Shiko Produktet pa fature</a>
+            @endif
             <h4 style="float: right">Total Shitjet: {{$agentTotal}}</h4>
             <div class="table-responsive">
                 <table id="zero_config" class="table table-striped table-bordered">

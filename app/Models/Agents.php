@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Agents extends Model
 {
     protected $fillable = [
-        'emri', 'mbiemri'
+        'emri', 'mbiemri', 'user_id'
     ];
 }

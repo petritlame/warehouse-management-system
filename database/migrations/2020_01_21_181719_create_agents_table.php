@@ -17,6 +17,7 @@ class CreateAgentsTable extends Migration
             $table->increments('id');
             $table->text('emri');
             $table->text('mbiemri');
+            $table->unsignedInteger('user_id')->nullable();
             $table->timestamps();
         });
     }

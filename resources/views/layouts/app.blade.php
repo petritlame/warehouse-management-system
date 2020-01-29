@@ -76,6 +76,7 @@
             <!-- Sidebar navigation-->
             <nav class="sidebar-nav">
                 <ul id="sidebarnav" class="p-t-30">
+                    @if(Auth::user()->type == 1)
                     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account-card-details"></i><span class="hide-menu">MAGAZINA </span></a>
                         <ul aria-expanded="false" class="collapse  first-level">
                             @foreach($categories as $category)
@@ -85,6 +86,9 @@
                     </li>
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('arka')}}" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">ARKA</span></a></li>
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('products')}}" aria-expanded="false"><i class="mdi mdi-truck"></i><span class="hide-menu">MAKINAT</span></a></li>
+                    @else
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('agents')}}" aria-expanded="false"><i class="mdi mdi-truck"></i><span class="hide-menu">{{Auth::user()->name}}</span></a></li>
+                    @endif
                 </ul>
             </nav>
         </div>

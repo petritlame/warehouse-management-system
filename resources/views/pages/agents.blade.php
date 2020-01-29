@@ -2,8 +2,9 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-
+            @if(Auth::user()->type == 1)
             <a href="javascript:void(0)" data-toggle="modal" data-target="#shtoAgent" class="btn btn-success btn-sm" style="margin-left: 10px;margin-bottom: 20px;margin-top: 6px;">Shto +</a>
+            @endif
             <div class="table-responsive">
                 <table id="zero_config" class="table table-striped table-bordered">
                     <thead>
@@ -16,6 +17,7 @@
                     </tr>
                     </thead>
                     <tbody>
+                    @if(Auth::user()->type == 1)
                     @foreach($agents as $agent)
                         <tr>
                             <td>{{$agent->id}}</td>
@@ -30,7 +32,24 @@
                                 </p>
                             </td>
                         </tr>
-                    @endforeach
+                        @endforeach
+                        @endif
+                        @foreach($agents as $agent)
+                            @if($agent->user_id == Auth::id())
+                            <tr>
+                                <td>{{$agent->id}}</td>
+                                <td>{{$agent->emri}}</td>
+                                <td>{{$agent->mbiemri}}</td>
+                                <td>{{$agent->created_at}}</td>
+                                <td>
+                                    <p style="text-align: center">
+                                        <a href="{{route('singleAgent', ['id' => $agent->id])}}" class="btn btn-success btn-sm show_agent">Shiko</a>
+                                    </p>
+                                </td>
+                            </tr>
+                            @endif
+                            @endforeach
+
                     </tbody>
                     <tfoot>
                     <tr>
@@ -69,6 +88,12 @@
                                 <label for="address" class="col-sm-3 text-right control-label col-form-label">Mbiemri</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="mbiemri" name="mbiemri" placeholder="Mbiemri">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="password" class="col-sm-3 text-right control-label col-form-label">Password</label>
+                                <div class="col-sm-9">
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                                 </div>
                             </div>
                         </div>
