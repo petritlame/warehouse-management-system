@@ -58,6 +58,13 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/product/makina/delete/{id}', 'CarProductsController@destroy')->name('delete_products');
         Route::get('/product/makina/invoice', 'CarProductsController@generateInvoice')->name('generateInvoice');
         Route::post('/product/makina/invoice_item/', 'CarProductsController@addInvoiceItem')->name('addInvoiceItem');
+
+        //dyqani
+        Route::get('/dyqani', 'DyqaniController@index')->name('dyqani');
+        Route::post('/dyqani/add', 'DyqaniController@store')->name('add_dyqani');
+        Route::get('/dyqani/delete/{id}', 'DyqaniController@destroy')->name('hiqProdukt');
+        Route::get('/dyqani/generateInvoice', 'DyqaniController@createInvoice')->name('generateInvoiceStore');
+        Route::get('/dyqani/history', 'DyqaniController@history')->name('history');
     });
 
         Route::get('/agents', 'AgentController@index')->name('agents');

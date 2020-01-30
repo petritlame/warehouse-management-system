@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('assets/images/favicon.png')}}">
-    <title>Matrix Template - The Ultimate Multipurpose admin template</title>
+    <title>Eco AL Cleaning - Magazina</title>
     <link href="{{asset('css/app.css')}}" rel="stylesheet">
     <link href="{{asset('css/style.min.css')}}" rel="stylesheet">
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>

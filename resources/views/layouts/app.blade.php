@@ -85,9 +85,10 @@
                         </ul>
                     </li>
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('arka')}}" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">ARKA</span></a></li>
-                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('products')}}" aria-expanded="false"><i class="mdi mdi-truck"></i><span class="hide-menu">MAKINAT</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('products')}}" aria-expanded="false"><i class="mdi mdi-truck"></i><span class="hide-menu">MAKINAT</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('dyqani')}}" aria-expanded="false"><i class="mdi mdi-store"></i><span class="hide-menu">DYQANI</span></a></li>
                     @else
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('agents')}}" aria-expanded="false"><i class="mdi mdi-truck"></i><span class="hide-menu">{{Auth::user()->name}}</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('agents')}}" aria-expanded="false"><i class="mdi mdi-account-settings-variant"></i><span class="hide-menu">{{Auth::user()->name}}</span></a></li>
                     @endif
                 </ul>
             </nav>
