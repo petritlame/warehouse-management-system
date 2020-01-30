@@ -79,6 +79,21 @@ $('#category_select').change(function () {
         });
 });
 
+$('#dyqani_category_select').change(function () {
+    var category_id = $(this).val();
+    var dropdown = $("#product_select_dyqani");
+    dropdown.empty()
+        .append('<option disabled selected>Zgjidh Produktin</option>');
+    dropdown.attr('disabled', true);
+    $.get(BASE_URL+'/products/makina/category/'+category_id)
+        .done(function( data ) {
+            dropdown.attr('disabled', false);
+            $.each(data, function(i, item) {
+                dropdown.append($("<option />").val(item.id).text(item.emertimi));
+            });
+        });
+});
+
 
 
 $(document).on('click', '.shto_ne_makine', function() {
