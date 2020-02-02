@@ -4,6 +4,8 @@
         <div class="card-body">
             <h5 class="card-title">Kategoria: {{ucfirst($category)}}</h5>
             <a href="javascript:void(0)" data-toggle="modal" data-target="#Modal2" class="btn btn-success btn-sm" style="margin-left: 10px;margin-bottom: 20px;margin-top: 6px;">Shto +</a>
+            <h4 style="float: right;">Vlera totale: <b id="totalShitje">{{$vlera}}</b></h4>
+            <h4 style="float: right; margin-right: 70px;">Vlera totale e {{ucfirst($category)}}: <b>{{$shuma}}</b></h4>
             <div class="table-responsive">
                 <table id="zero_config" class="table table-striped table-bordered">
                     <thead>

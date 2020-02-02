@@ -147,7 +147,7 @@
                             <div class="form-group row">
                                 <label for="address" class="col-sm-3 text-right control-label col-form-label">Sasia</label>
                                 <div class="col-sm-9">
-                                    <input type="number" class="form-control" id="edit_sasia" name="sasia" placeholder="Sasia">
+                                    <input type="number"  class="form-control" id="edit_sasia" name="sasia" placeholder="Sasia">
                                 </div>
                             </div>
 

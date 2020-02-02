@@ -15,14 +15,20 @@ class ProductsController extends Controller
      */
     public function index()
     {
+        $shuma = 0;
         $products = DB::table('products')
             ->join('sasia', 'products.id', '=', 'sasia.product_id')
             ->join('categories', 'categories.id', '=', 'products.category_id')
             ->select('products.*','products.emertimi as emri', 'sasia.sasia', 'categories.emertimi')
             ->where('categories.emertimi', '=', 'detergjente')
             ->get();
+        $VleraTotale = DB::select("SELECT SUM(`vlera_shitje`) as shuma FROM `products`");
+        $vlera = $VleraTotale[0]->shuma;
+        foreach ($products as $t){
+            $shuma = $shuma + (float)$t->vlera_shitje;
+        }
         $catecories = DB::table('categories')->get();
-        return view('pages.index')->with(['category' => 'Detergjent', 'products' => $products, 'categories' => $catecories]);
+        return view('pages.index')->with(['category' => 'Detergjent', 'products' => $products, 'categories' => $catecories, 'shuma'=> $shuma, 'vlera' => $vlera]);
     }
 
     /**
@@ -75,14 +81,20 @@ class ProductsController extends Controller
      */
     public function show($category)
     {
+        $shuma = 0;
         $products = DB::table('products')
             ->join('sasia', 'products.id', '=', 'sasia.product_id')
             ->join('categories', 'categories.id', '=', 'products.category_id')
             ->select('products.*','products.emertimi as emri', 'sasia.sasia', 'categories.emertimi')
             ->where('categories.emertimi', '=', $category)
             ->get();
+        $VleraTotale = DB::select("SELECT SUM(`vlera_shitje`) as shuma FROM `products`");
+        $vlera = $VleraTotale[0]->shuma;
+        foreach ($products as $t){
+            $shuma = $shuma + (float)$t->vlera_shitje;
+        }
         $catecories = DB::table('categories')->get();
-        return view('pages.index')->with(['category' => $category, 'products' => $products, 'categories' => $catecories]);
+        return view('pages.index')->with(['category' => $category, 'products' => $products, 'categories' => $catecories, 'shuma'=> $shuma,'vlera' => $vlera]);
     }
 
     /**
