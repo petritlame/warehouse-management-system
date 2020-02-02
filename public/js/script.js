@@ -1,9 +1,15 @@
 var getUrl = window.location;
-var BASE_URL = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+var BASE_URL = getUrl .protocol + "//" + getUrl.host + "/";
 
 
 function delete_product(emri){
     if(!confirm("A jeni i sigurt te fshini kete "+emri+" ?")){
+        event.preventDefault();
+    }
+}
+
+function update_product(){
+    if(!confirm("A jeni i sigurt te shlyeni kete borxh ?")){
         event.preventDefault();
     }
 }
@@ -172,6 +178,78 @@ $('#dalje_invoice').click(function () {
     $('#product_invoice').val(id);
 });
 
+
+$('#submit_date_search').click(function () {
+    var start = $('#agent_start_date').val();
+    var end = $('#agent_end_date').val();
+    var agent_id = $('#agent_id').val();
+    var today = new Date();
+    var start_date = new Date(start);
+    var end_date = new Date(end);
+    if (start_date > end_date){
+        alert('Data e Fillimit me e madhe se data e mbarimit')
+    }else{
+        var html = '';
+        $('#agent_sales').html('<tr class="odd"><td valign="top" colspan="8" class="dataTables_empty">Prisni...</td></tr>');
+        $.get(BASE_URL+'agents/search?strDt='+start+'&endDt='+end+'&agent_id='+agent_id)
+            .done(function( data ) {
+                $.each(data.items, function (i, item) {
+                    html = html + '<tr>'+
+                    '<td>'+item.id+'</td>'+
+                    '<td>'+item.data+'</td>'+
+                    '<td><a href="'+BASE_URL+'/invoices/salesInvoices/'+item.invoice+'" target="_blank">'+item.invoice+'</a></td>'+
+                    '<td><b>'+item.total+'</b></td>'+
+                    '</tr>';
+                });
+                $('#agent_sales').html(html);
+                $('#totalShitje').html('');
+                $('#totalShitje').html(data.total);
+            });
+    }
+});
+
+$('.clientProduct').click(function () {
+    var id = $(this).attr('data-id');
+    var html = '';
+    $.get(BASE_URL+'/client/products/'+id)
+        .done(function( data ) {
+            $.each(data, function (i, item) {
+                html = html + '<tr>'+
+                               '<td>'+item.replace(/\s/g, '')+'</td>'+
+                            '</tr>';
+            });
+            $('#clientProductsBody').html(html);
+            $('#clientProducts').modal('show');
+        });
+});
+
+$('.edit_client').click(function () {
+    var id = $(this).attr('data-id');
+    $('#edit_client_name').attr('disabled', true);
+    $('#edit_client_adresa').attr('disabled', true);
+    $('#edit_client_phone').attr('disabled', true);
+    $('#edit_client_pershkrimi').attr('disabled', true);
+    $('#edit_client_products').attr('disabled', true);
+
+    $.get(BASE_URL+'/client/'+id)
+        .done(function( data ) {
+
+            $('#edit_client_name').attr('disabled', false);
+            $('#edit_client_adresa').attr('disabled', false);
+            $('#edit_client_phone').attr('disabled', false);
+            $('#edit_client_pershkrimi').attr('disabled', false);
+            $('#edit_client_products').attr('disabled', false);
+
+            $('#edit_client_name').val(data.emri);
+            $('#edit_client_adresa').val(data.adressa);
+            $('#edit_client_phone').val(data.phone);
+            $('#edit_client_pershkrimi').html(data.pershkrimi);
+            $('#edit_client_products').html(data.produktet);
+
+            $('#client_id').val(data.id)
+        })
+
+});
 function notifySuccess(data) {
     toastr.success(data);
     toastr.options = {

@@ -65,9 +65,31 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/dyqani/delete/{id}', 'DyqaniController@destroy')->name('hiqProdukt');
         Route::get('/dyqani/generateInvoice', 'DyqaniController@createInvoice')->name('generateInvoiceStore');
         Route::get('/dyqani/history', 'DyqaniController@history')->name('history');
+
+        Route::get('/agents/search', 'AgentController@search')->name('singleAgentSearch');
+
+        //clients
+        Route::get('/clients', 'ClientsController@index')->name('clients');
+        Route::post('/client/add', 'ClientsController@store')->name('add_client');
+        Route::get('/client/products/{id}', 'ClientsController@getProducts')->name('client_products');
+        Route::get('/client/{id}', 'ClientsController@show')->name('client');
+        Route::post('/client/edit', 'ClientsController@update')->name('edit_client');
+        Route::get('/client/delete/{id}', 'ClientsController@destroy')->name('delete_client');
+
+        //debt
+        Route::get('/debt', 'DebtController@index')->name('debt');
+        Route::post('/debt/add', 'DebtController@store')->name('add_debt');
+        Route::get('/debt/clear/{id}', 'DebtController@clear')->name('clear_debt');
+        Route::get('/debt/delete/{id}', 'DebtController@destroy')->name('delete_debt');
+
+        //rroga
+        Route::get('/rrogat', 'RrogaController@index')->name('rrogat');
+        Route::post('/rroga/add', 'RrogaController@store')->name('add_rroga');
+        Route::get('/rroga/delete/{id}', 'RrogaController@destroy')->name('delete_rroga');
     });
 
         Route::get('/agents', 'AgentController@index')->name('agents');
         Route::get('/agent/show/{id}', 'AgentController@singleAgent')->name('singleAgent');
+
 });
 

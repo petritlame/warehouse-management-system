@@ -6,8 +6,21 @@
             @if(Auth::user()->type == 1)
             <a href="{{route('generateAgentInvoice', ['id' => $agent_id])}}" class="btn btn-success btn-sm {{ ($invoiceItem->count() > 0) ? '' : 'disabled' }}" id="generateAgentInvoice" style="position: absolute;left: 200px;top: 55px;">Gjenero Fature</a>
             <a href="javascript:void(0)" data-toggle="modal" data-target="#withoutInvoice" class="btn btn-cyan btn-sm {{ ($invoiceItem->count() > 0) ? '' : 'disabled' }}" style="margin-left: 10px;margin-bottom: 20px;margin-top: 6px;">Shiko Produktet pa fature</a>
+                <div class="form-group row" style="width: 20%;position: absolute;left: 315px;top: 51px;">
+                    <label for="name" class="col-sm-3 text-right control-label col-form-label">Data</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control agenti_data" name="start_date" id="agent_start_date" placeholder="Data nga">
+                    </div>
+                </div>
+                <div class="form-group row" style="width: 20%;position: absolute; left: 525px;top: 51px;">
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control agenti_data" name="end_date" id="agent_end_date" placeholder="Data deri me">
+                    </div>
+                </div>
+            <input type="hidden" value="{{$agent_id}}" id="agent_id">
+                <a href="#" class="btn btn-cyan btn-sm" id="submit_date_search" style="margin-left: 500px;margin-bottom: 20px;margin-top: 6px; position: absolute">Kerko</a>
             @endif
-            <h4 style="float: right">Total Shitjet: {{$agentTotal}}</h4>
+            <h4 style="float: right">Total Shitjet: <b id="totalShitje">{{$agentTotal}}</b></h4>
             <div class="table-responsive">
                 <table id="zero_config" class="table table-striped table-bordered">
                     <thead>
@@ -18,7 +31,7 @@
                         <th>Total</th>
                     </tr>
                     </thead>
-                    <tbody id="carProductsBody">
+                    <tbody id="agent_sales">
                     @foreach($invoices as $invoice)
                         <tr>
                             <td>{{$invoice->id}}</td>

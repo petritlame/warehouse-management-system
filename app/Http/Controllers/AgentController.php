@@ -6,10 +6,12 @@ use App\Models\Agents;
 use App\Models\Makinat;
 use App\User;
 use Barryvdh\DomPDF\Facade as PDF;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use SebastianBergmann\CodeCoverage\Report\PHP;
 
 class AgentController extends Controller
 {
@@ -181,5 +183,22 @@ class AgentController extends Controller
         $pdf->loadView('invoices.salesInvoice', ['data' => $invoiceItem, 'date' => $date, 'agjenti' => $agjenti, 'total'=>$total]);
         $pdf->save(public_path().'/invoices/salesInvoices/'.$flieName);
         return redirect()->back()->with('data', ['msg' => 'Fatura u Gjenerua me Sukses']);
+    }
+
+    public function search(Request $request){
+        $start_date = ($request->strDt) ? $request->strDt : date('d/m/Y');
+        $end_date = ($request->endDt) ? $request->endDt : date('d/m/Y');
+        $start_date = date("d-m-Y", strtotime($start_date));
+        $end_date = date("d-m-Y", strtotime($end_date));
+        $agent_id = $request->agent_id;
+        $data = DB::select("SELECT * FROM `invoice` WHERE `agent_id` = ".$agent_id." AND STR_TO_DATE(data, '%d-%m-%Y') >= STR_TO_DATE('".$start_date."', '%d-%m-%Y') AND STR_TO_DATE(data, '%d-%m-%Y') <= STR_TO_DATE('".$end_date."', '%d-%m-%Y')");
+        $total = 0;
+        foreach ($data as $item) {
+            $total = $total + $item->total;
+        }
+        return response([
+            'items' => $data,
+            'total' => round((float)$total, 3)
+        ]);
     }
 }

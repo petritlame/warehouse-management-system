@@ -88,6 +88,9 @@
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('arka')}}" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">ARKA</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('products')}}" aria-expanded="false"><i class="mdi mdi-truck"></i><span class="hide-menu">MAKINAT</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('dyqani')}}" aria-expanded="false"><i class="mdi mdi-store"></i><span class="hide-menu">DYQANI</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('clients')}}" aria-expanded="false"><i class="mdi mdi-account-box"></i><span class="hide-menu">KLIENTET</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('debt')}}" aria-expanded="false"><i class="mdi mdi-cash-multiple"></i><span class="hide-menu">BORXHET</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('rrogat')}}" aria-expanded="false"><i class="mdi mdi-cash-usd"></i><span class="hide-menu">RROGAT</span></a></li>
                     @else
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('agents')}}" aria-expanded="false"><i class="mdi mdi-account-settings-variant"></i><span class="hide-menu">{{Auth::user()->name}}</span></a></li>
                     @endif
@@ -116,6 +119,8 @@
     $('#zero_config').DataTable();
     jQuery('.data_arka').datepicker();
     jQuery('.makina_data').datepicker();
+    jQuery('.agenti_data').datepicker();
+    jQuery('#rroga_data').datepicker();
 </script>
 @if (session()->has('data'))
     <script>
@@ -133,6 +138,12 @@
         @endforeach
     @endif
 @endif
+<!--
+Made py Petrit Lame
+email: petritlame@live.com
+github: petritlame
+-->
+
 </body>
 
 </html>

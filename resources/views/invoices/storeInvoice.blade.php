@@ -107,7 +107,7 @@
                 <table>
                     <tr>
                         <td class="title">
-                            <span>ECO CLEANING</span>
+                            <span>ECO AL CLEANING</span>
                         </td>
 
                         <td style="text-align: right">
@@ -125,7 +125,7 @@
                     <table>
                         <tr>
                             <td>
-                                ECO CLEANING.
+                                ECO AL CLEANING.
                                 <br> Rruga Reshit Petrela,
                                 <br> Kompleksi Usluga, Pallati Nr.53
                             </td>
@@ -165,7 +165,7 @@
                     {{$item->name}}
                 </td>
 
-                <td>
+                <td style="text-align : right">
                     {{$item->sasia}}
                 </td>
                 <td style="text-align : right">

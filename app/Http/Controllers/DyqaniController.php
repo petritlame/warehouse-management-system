@@ -21,7 +21,7 @@ class DyqaniController extends Controller
         $categories = Categories::all();
         $product = DB::table('dyqani')
             ->join('products', 'dyqani.product_id', '=', 'products.id')
-            ->select('products.emertimi as name','products.vlera_shitje as cmimi', 'dyqani.*')->get();
+            ->select('products.emertimi as name','products.cmim_shitje as cmimi', 'dyqani.*')->get();
         foreach ($product as $item) {
             $totali = $totali + $item->total;
         }
@@ -43,7 +43,7 @@ class DyqaniController extends Controller
         $total = 0;
         $products = DB::table('dyqani')
             ->join('products', 'dyqani.product_id', '=', 'products.id')
-            ->select('products.emertimi as name','products.vlera_shitje as cmimi', 'dyqani.*')->get();
+            ->select('products.emertimi as name','products.cmim_shitje as cmimi', 'dyqani.*')->get();
         foreach ($products as $product){
             $total = $total + $product->total;
         }
@@ -92,7 +92,7 @@ class DyqaniController extends Controller
         if ($sasia->sasia < $request->sasia){
             return redirect()->back()->withErrors(['Kujdes, nuk ka gjendje ne magazine']);
         }
-        $total = $produkt->vlera_shitje * $request->sasia;
+        $total = $produkt->cmim_shitje * $request->sasia;
         $insert = [
             'product_id'=> $request->product_id,
             'sasia' => $request->sasia,
