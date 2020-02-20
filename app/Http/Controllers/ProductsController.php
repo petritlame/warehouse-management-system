@@ -16,6 +16,7 @@ class ProductsController extends Controller
     public function index()
     {
         $shuma = 0;
+        $vleraBlerjes = 0;
         $products = DB::table('products')
             ->join('sasia', 'products.id', '=', 'sasia.product_id')
             ->join('categories', 'categories.id', '=', 'products.category_id')
@@ -26,9 +27,10 @@ class ProductsController extends Controller
         $vlera = $VleraTotale[0]->shuma;
         foreach ($products as $t){
             $shuma = $shuma + (float)$t->vlera_shitje;
+            $vleraBlerjes = $vleraBlerjes + (float)$t->vlera_blerje;
         }
         $catecories = DB::table('categories')->get();
-        return view('pages.index')->with(['category' => 'Detergjent', 'products' => $products, 'categories' => $catecories, 'shuma'=> $shuma, 'vlera' => $vlera]);
+        return view('pages.index')->with(['category' => 'Detergjent', 'products' => $products, 'categories' => $catecories, 'shuma'=> $shuma, 'vlera' => $vlera, 'vleraBlerjes' => $vleraBlerjes]);
     }
 
     /**
@@ -82,6 +84,7 @@ class ProductsController extends Controller
     public function show($category)
     {
         $shuma = 0;
+        $vleraBlerjes = 0;
         $products = DB::table('products')
             ->join('sasia', 'products.id', '=', 'sasia.product_id')
             ->join('categories', 'categories.id', '=', 'products.category_id')
@@ -92,9 +95,10 @@ class ProductsController extends Controller
         $vlera = $VleraTotale[0]->shuma;
         foreach ($products as $t){
             $shuma = $shuma + (float)$t->vlera_shitje;
+            $vleraBlerjes = $vleraBlerjes + (float)$t->vlera_blerje;
         }
         $catecories = DB::table('categories')->get();
-        return view('pages.index')->with(['category' => $category, 'products' => $products, 'categories' => $catecories, 'shuma'=> $shuma,'vlera' => $vlera]);
+        return view('pages.index')->with(['category' => $category, 'products' => $products, 'categories' => $catecories, 'shuma'=> $shuma,'vlera' => $vlera, 'vleraBlerjes' => $vleraBlerjes]);
     }
 
     /**
