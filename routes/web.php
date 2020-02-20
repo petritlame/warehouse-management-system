@@ -27,7 +27,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/categories/add', 'CategoriesController@store')->name('add_category');
         Route::get('/categories/{id}', 'CategoriesController@show');
         Route::get('/categories/delete/{id}', 'CategoriesController@destroy')->name('delete_category');
-        Route::get('/categories/edit', 'CategoriesController@destroy')->name('delete_category');
+        Route::get('/categories/edit', 'CategoriesController@destroy')->name('edit_category');
         Route::post('/categories/update', 'CategoriesController@update')->name('update_category');
 
         //arka

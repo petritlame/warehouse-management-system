@@ -42,7 +42,7 @@
                                 <p style="text-align: center">
                                     <a href="#" class="btn btn-cyan btn-sm shto_ne_makine" data-id="{{$carProduct->id}},{{$carProduct->product_id}}" data-toggle="modal" data-target="#carProductAdd">+</a>
                                     <a href="#" class="btn btn-cyan btn-sm hiq_nga_makine" data-id="{{$carProduct->id}},{{$carProduct->product_id}}" data-toggle="modal" data-target="#carProductRemove">-</a>
-                                    <a href="#" class="btn btn-success btn-sm dalje" id="dalje_invoice" data-id="{{$carProduct->id}}" data-toggle="modal" data-target="#carPassToInvoice">Dalje</a>
+                                    <a href="#" class="btn btn-success btn-sm dalje dalje_invoices" id="dalje_invoice" data-id="{{$carProduct->id}}" data-toggle="modal" data-target="#carPassToInvoice">Dalje</a>
                                     <a href="{{route('delete_products', ['id' => $carProduct->id])}}" class="btn btn-danger btn-sm" onclick="return delete_product('produkt');">Hiqe</a>
                                 </p>
                             </td>

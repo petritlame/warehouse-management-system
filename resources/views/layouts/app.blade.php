@@ -116,7 +116,9 @@
 <script src="{{asset('js/toastr.min.js')}}"></script>
 <script src="{{asset('assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
 <script>
-    $('#zero_config').DataTable();
+    $('#zero_config').DataTable({
+    "bPaginate": false
+});
     jQuery('.data_arka').datepicker();
     jQuery('.makina_data').datepicker();
     jQuery('.agenti_data').datepicker();

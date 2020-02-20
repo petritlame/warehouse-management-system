@@ -242,7 +242,6 @@ class CarProductsController extends Controller
     }
 
     function addInvoiceItem(Request $request) {
-
         $id = $request->product_id;
         $rules = [
             'sasia' => 'required|numeric'
@@ -255,6 +254,7 @@ class CarProductsController extends Controller
         $validatedData = $request->validate($rules, $messages);
 
         $item = CarProducts::where('id', $id)->first();
+
         if ($item->sasia < $request->sasia){
             return redirect()->back()->withErrors(['Kujdes, Nuk sasia me e madhe se gjendja ne makine']);
         }

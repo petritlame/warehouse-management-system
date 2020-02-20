@@ -173,8 +173,10 @@ $('#generateInvoice').click(function () {
     window.location.href=url;
 });
 
-$('#dalje_invoice').click(function () {
+$('.dalje_invoices').click(function () {
     var id = $(this).attr('data-id');
+    console.log(id);
+    $('#product_invoice').val('');
     $('#product_invoice').val(id);
 });
 
