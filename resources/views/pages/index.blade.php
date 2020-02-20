@@ -6,6 +6,7 @@
             <a href="javascript:void(0)" data-toggle="modal" data-target="#Modal2" class="btn btn-success btn-sm" style="margin-left: 10px;margin-bottom: 20px;margin-top: 6px;">Shto +</a>
             <h4 style="float: right;">Vlera totale: <b id="totalShitje">{{$vlera}}</b></h4>
             <h4 style="float: right; margin-right: 70px;">Vlera totale e {{ucfirst($category)}}: <b>{{$shuma}}</b></h4>
+            <h4 style="float: right; margin-right: 70px;">Vlera e blerje: {{ucfirst($category)}}: <b>{{$vleraBlerjes}}</b></h4>
             <div class="table-responsive">
                 <table id="zero_config" class="table table-striped table-bordered">
                     <thead>
@@ -31,7 +32,7 @@
                             <td>{{$product->vlera_shitje}}</td>
                             <td>{{($product->vlera_shitje) - ($product->vlera_blerje)}}</td>
                             <td>
-                                <p style="text-align: center">
+                                <p style="text-align: center; width: 106px;">
                                     <a href="#" class="btn btn-cyan btn-sm edit_product" data-id="{{$product->id}}" data-toggle="modal" data-target="#Modal3">Edito</a>
                                     <a href="{{route('delete_product', ['id' => $product->id])}}" class="btn btn-danger btn-sm" onclick="return delete_product('produkt');">Fshi</a>
                                 </p>
