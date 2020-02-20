@@ -18,6 +18,7 @@ class CreateDebtTable extends Migration
             $table->float('value');
             $table->text('pershkrimi')->nullable();
             $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('type')->default(0);
             $table->timestamps();
         });
     }

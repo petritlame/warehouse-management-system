@@ -14,6 +14,10 @@ function update_product(){
     }
 }
 
+$('.hiqBorxh_button').click(function () {
+    var id = $(this).attr('data-id');
+    $('#debt_id').val(id);
+});
 
 $('.edit_product').click(function () {
     var id =  $(this).attr('data-id');
