@@ -29,18 +29,24 @@
                         <th>SHPJEGIMI</th>
                         <th>Hyrjet</th>
                         <th>Daljet</th>
+                        <th>Edit</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($records as $record)
                         <tr>
                             <td>{{$record->id}}</td>
-                            <td>{{$record->data}}</td>
+                            <td style="width: 100px;">{{$record->data}}</td>
                             <td>{{$record->nr_arketimi}}</td>
                             <td>{{$record->nr_pagese}}</td>
                             <td>{{$record->shpjegmi}}</td>
                             <td style="background-color: #00ca0052">{{$record->hyrjet}}</td>
                             <td style="background-color: #ff00006b">{{($record->daljet)}}</td>
+                            <td style="">
+                                <p style="text-align: center">
+                                    <a href="#" class="btn btn-cyan btn-sm edit_arka" data-id="{{$record->id}}" data-toggle="modal" data-target="#arkaModalEdit">Edito</a>
+                                </p>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -53,6 +59,7 @@
                         <th>SHPJEGIMI</th>
                         <th>Hyrjet</th>
                         <th>Daljet</th>
+                        <th>Edit</th>
                     </tr>
                     </tfoot>
                 </table>
@@ -124,53 +131,60 @@
         </div>
     </div>
 
-    <div class="modal fade" id="Modal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="arkaModalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ndrysho Produktin ne Magazine</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Shto Transaksion ne Arke</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal" action="" method="post">
+                    <form class="form-horizontal" action="{{route('update_arka')}}" method="post">
                         @csrf
-                        <input type="hidden" id="product_id" name="id">
+                        <input type="hidden" id="arka_id" name="id">
                         <div class="card-body">
                             <div class="form-group row">
-                                <label for="name" class="col-sm-3 text-right control-label col-form-label">Emertimi</label>
+                                <label for="name" class="col-sm-3 text-right control-label col-form-label">Data</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="edit_emertimi" name="emertimi" placeholder="Emertimi">
+                                    <input type="text" class="form-control data_arka" name="data" id="edit_arka_data" placeholder="dd/mm/yyyy">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="address" class="col-sm-3 text-right control-label col-form-label">Sasia</label>
+                                <label for="address" class="col-sm-3 text-right control-label col-form-label">M. Arketimi Nr</label>
                                 <div class="col-sm-9">
-                                    <input type="number"  class="form-control" id="edit_sasia" name="sasia" placeholder="Sasia">
+                                    <input type="number" class="form-control" id="edit_arka_nr_arketimi" name="nr_arketimi" placeholder="M. Arketimi Nr">
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="address" class="col-sm-3 text-right control-label col-form-label">Cmimi Blerje</label>
+                                <label for="address" class="col-sm-3 text-right control-label col-form-label">M. Pagese Nr</label>
                                 <div class="col-sm-9">
-                                    <input type="number" step="0.01" class="form-control" id="edit_cmim_blerje" name="cmim_blerje" placeholder="Cmimi Blerje">
+                                    <input type="number" step="0.01" class="form-control" id="edit_arka_nr_pagese" name="nr_pagese" placeholder="M. Pagese Nr">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="address" class="col-sm-3 text-right control-label col-form-label">Cmim Shitje</label>
+                                <label for="address" class="col-sm-3 text-right control-label col-form-label">SHPJEGIMI</label>
                                 <div class="col-sm-9">
-                                    <input type="number" step="0.01" class="form-control" id="edit_cmim_shitje" name="cmim_shitje" placeholder="Cmim Shitje">
+                                    <textarea class="form-control" name="shpjegmi" id="edit_arka_shpjegmi" placeholder="SHPJEGIMI"></textarea>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="address" class="col-sm-3 text-right control-label col-form-label">Vlera Shitje</label>
+                                <label for="address" class="col-sm-3 text-right control-label col-form-label">Hyrjet</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control" id="edit_kategoria" name="category_id">
-                                    </select>
+                                    <input type="number" value="0.00" step="0.01" class="form-control" id="edit_arka_hyrjet" name="hyrjet" placeholder="Hyrjet">
                                 </div>
                             </div>
+
+                            <div class="form-group row">
+                                <label for="address" class="col-sm-3 text-right control-label col-form-label">Daljet</label>
+                                <div class="col-sm-9">
+                                    <input type="number" value="0.00" step="0.01" class="form-control" id="edit_arka_daljet" name="daljet" placeholder="Daljet">
+                                </div>
+                            </div>
+
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">Ndrysho</button>
