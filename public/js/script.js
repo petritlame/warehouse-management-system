@@ -236,6 +236,7 @@ $('.edit_client').click(function () {
     $('#edit_client_phone').attr('disabled', true);
     $('#edit_client_pershkrimi').attr('disabled', true);
     $('#edit_client_products').attr('disabled', true);
+    $('#edit_client_nipt').attr('disabled', true);
 
     $.get(BASE_URL+'/client/'+id)
         .done(function( data ) {
@@ -245,12 +246,14 @@ $('.edit_client').click(function () {
             $('#edit_client_phone').attr('disabled', false);
             $('#edit_client_pershkrimi').attr('disabled', false);
             $('#edit_client_products').attr('disabled', false);
+            $('#edit_client_nipt').attr('disabled', false);
 
             $('#edit_client_name').val(data.emri);
             $('#edit_client_adresa').val(data.adressa);
             $('#edit_client_phone').val(data.phone);
             $('#edit_client_pershkrimi').html(data.pershkrimi);
             $('#edit_client_products').html(data.produktet);
+            $('#edit_client_nipt').val(data.nipt);
 
             $('#client_id').val(data.id)
         })

@@ -97,6 +97,7 @@ class ClientsController extends Controller
             'phone' => $request->phone,
             'pershkrimi' => $request->pershkrimi,
             'produktet' => $request->produktet,
+            'nipt' => $request->nipt,
         ];
         $clients = Clients::find($request->id)->update($updateArray);
         if ($clients){
