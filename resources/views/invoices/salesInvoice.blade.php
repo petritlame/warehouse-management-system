@@ -8,7 +8,7 @@
         .invoice-box {
             max-width: 800px;
             margin: auto;
-            padding: 30px;
+            padding: 20px;
             border: 1px solid #eee;
             box-shadow: 0 0 10px rgba(0, 0, 0, .15);
             font-size: 16px;
@@ -32,13 +32,10 @@
             text-align: right;
         }
 
-        .invoice-box table tr.top table td {
-            padding-bottom: 20px;
-        }
 
         .invoice-box table tr.top table td.title {
-            font-size: 27px;
-            line-height: 48px;
+            font-size: 20px;
+            line-height: 20px;
             color: #333;
         }
 
@@ -52,9 +49,6 @@
             font-weight: bold;
         }
 
-        .invoice-box table tr.details td {
-            padding-bottom: 20px;
-        }
 
         .invoice-box table tr.item td{
             border-bottom: 1px solid #eee;
@@ -107,11 +101,11 @@
                 <table>
                     <tr>
                         <td class="title">
-                            <span>ECO AL CLEANING</span>
+                            <span>Fature Shitje</span>
                         </td>
 
                         <td style="text-align: right">
-                            Numri Fatures #: ______
+                            Numri Fatures #: ___________
                             <br> Data: {{$date}}
 
                         </td>
@@ -126,14 +120,11 @@
                         <tr>
                             <td>
                                 ECO AL CLEANING.
-                                <br> Rruga Reshit Petrela,
-                                <br> Kompleksi Usluga, Pallati Nr.53
+                                <br> Rruga Islam Zeka, Astir
                             </td>
-
-                            <td style="text-align: right">
-                                <b>Fature Shitje</b>
-                                <br> {{$agjenti}}
-                                <br> info@ecocleaning.com
+                            <td></td>
+                            <td>
+                                Agjenti: {{$agjenti}}
                             </td>
                         </tr>
                     </table>
@@ -141,13 +132,13 @@
             </tr>
         </table>
     </table>
-    <table>
+    <table border="1">
         <tr class="heading">
             <td>
                 Produkti
             </td>
 
-            <td>
+            <td style="text-align : left">
                 Sasia
             </td>
 

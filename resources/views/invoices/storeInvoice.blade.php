@@ -32,13 +32,9 @@
             text-align: right;
         }
 
-        .invoice-box table tr.top table td {
-            padding-bottom: 20px;
-        }
-
         .invoice-box table tr.top table td.title {
-            font-size: 27px;
-            line-height: 48px;
+            font-size: 20px;
+            line-height: 20px;
             color: #333;
         }
 
@@ -52,9 +48,6 @@
             font-weight: bold;
         }
 
-        .invoice-box table tr.details td {
-            padding-bottom: 20px;
-        }
 
         .invoice-box table tr.item td{
             border-bottom: 1px solid #eee;
@@ -107,11 +100,11 @@
                 <table>
                     <tr>
                         <td class="title">
-                            <span>ECO AL CLEANING</span>
+                            <span>Fature Shitje</span>
                         </td>
 
                         <td style="text-align: right">
-                            Numri Fatures #: ______
+                            Numri Fatures #: ___________
                             <br> Data: {{$date}}
 
                         </td>
@@ -126,14 +119,7 @@
                         <tr>
                             <td>
                                 ECO AL CLEANING.
-                                <br> Rruga Reshit Petrela,
-                                <br> Kompleksi Usluga, Pallati Nr.53
-                            </td>
-
-                            <td style="text-align: right">
-                                <b>Fature Shitje</b>
-                                <br> Dyqani
-                                <br> info@ecocleaning.com
+                                <br> Rruga Islam Zeka, Astir
                             </td>
                         </tr>
                     </table>
@@ -142,50 +128,51 @@
         </table>
     </table>
     <table>
-        <tr class="heading">
-            <td>
-                Produkti
-            </td>
-
-            <td>
-                Sasia
-            </td>
-
-            <td>
-                Cmimi Shitje
-            </td>
-
-            <td>
-                Vlera Totale
-            </td>
-        </tr>
-        @foreach($data as $item)
-            <tr class="item">
+        <table border="1">
+            <tr class="heading">
                 <td>
-                    {{$item->name}}
+                    Produkti
                 </td>
 
-                <td style="text-align : right">
-                    {{$item->sasia}}
-                </td>
-                <td style="text-align : right">
-                    {{$item->cmimi}}
+                <td style="text-align : left">
+                    Sasia
                 </td>
 
-                <td style="text-align : right">
-                    {{$item->cmimi * $item->sasia}}
+                <td>
+                    Cmimi Shitje
+                </td>
+
+                <td>
+                    Vlera Totale
                 </td>
             </tr>
-        @endforeach
-        <tr class="total">
-            <td></td>
-            <td></td>
-            <td></td>
-            <td style="text-align : right">
-                Totali: <b>{{$total}}</b>
-            </td>
-        </tr>
-    </table>
+            @foreach($data as $item)
+                <tr class="item">
+                    <td>
+                        {{$item->name}}
+                    </td>
+
+                    <td style="text-align : right">
+                        {{$item->sasia}}
+                    </td>
+                    <td style="text-align : right">
+                        {{$item->cmimi}}
+                    </td>
+
+                    <td style="text-align : right">
+                        {{$item->cmimi * $item->sasia}}
+                    </td>
+                </tr>
+            @endforeach
+            <tr class="total">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="text-align : right">
+                    Totali: <b>{{$total}}</b>
+                </td>
+            </tr>
+        </table>
 </div>
 </body>
 </html>

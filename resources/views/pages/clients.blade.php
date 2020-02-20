@@ -10,6 +10,7 @@
                         <th>ID</th>
                         <th>Emri</th>
                         <th>Adresa</th>
+                        <th>NIPT</th>
                         <th>Numri tel</th>
                         <th>Pershkrimi</th>
                         <th></th>
@@ -21,6 +22,7 @@
                             <td>{{$client->id}}</td>
                             <td>{{$client->emri}}</td>
                             <td>{{$client->adressa}}</td>
+                            <td>{{$client->nipt}}</td>
                             <td>{{$client->phone}}</td>
                             <td>{{$client->pershkrimi}}</td>
                             <td>
@@ -38,6 +40,7 @@
                         <th>ID</th>
                         <th>Emri</th>
                         <th>Adresa</th>
+                        <th>NIPT</th>
                         <th>Numri tel</th>
                         <th>Pershkrimi</th>
                         <th></th>
@@ -72,6 +75,13 @@
                                 <label for="name" class="col-sm-3 text-right control-label col-form-label">Adresa</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="client_adresa" name="adressa" placeholder="Adresa">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="name" class="col-sm-3 text-right control-label col-form-label">NIPT</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="client_nipt" name="nipt" placeholder="NIPT">
                                 </div>
                             </div>
 
@@ -132,6 +142,13 @@
                                 <label for="name" class="col-sm-3 text-right control-label col-form-label">Adresa</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="edit_client_adresa" name="adressa" placeholder="Adresa">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="name" class="col-sm-3 text-right control-label col-form-label">NIPT</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="edit_client_nipt" name="nipt" placeholder="NIPT">
                                 </div>
                             </div>
 
