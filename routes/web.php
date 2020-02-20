@@ -34,6 +34,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/arka', 'ArkaController@index')->name('arka');
         Route::post('/arka/add', 'ArkaController@store')->name('add_arka');
         Route::get('/arka/{month}', 'ArkaController@show')->name('show_arka');
+        Route::post('/arka/update', 'ArkaController@update')->name('update_arka');
+        Route::get('/arka/single/{id}', 'ArkaController@single')->name('single_arka');
 
         //agjenti
         Route::post('/agent/add', 'AgentController@store')->name('add_agent');

@@ -96,7 +96,12 @@ class ArkaController extends Controller
      */
     public function edit($id)
     {
-        //
+
+    }
+
+    public function single($id){
+        $arka = DB::table('arka')->where(['id'=>$id])->get();
+        return response($arka);
     }
 
     /**
@@ -106,9 +111,33 @@ class ArkaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $rules = [
+            'data'    => 'required',
+            'nr_arketimi' => 'required|numeric',
+            'nr_pagese' => 'required|numeric',
+            'hyrjet'       => 'required|numeric',
+            'daljet'       => 'required|numeric',
+        ];
+
+        $messages = [
+            'required'  => ':attribute nuk mund te lihet bosh',
+            'numeric'    => ':attribute nuk eshte numer',
+            'unique'    => ':attribute egziston ne databaze'
+        ];
+
+        $validatedData = $request->validate($rules, $messages);
+        $newDate = date("d-m-Y", strtotime($request->data));
+       $updateArray = [
+            'data'    => $newDate,
+            'nr_arketimi' => $request->nr_arketimi,
+            'nr_pagese' => $request->nr_pagese,
+            'hyrjet'       => $request->hyrjet,
+            'daljet'       => $request->daljet,
+       ];
+       DB::table('arka')->where(['id'=> $request->id])->update($updateArray);
+       return redirect()->back()->with('data', ['msg' => 'Rekordi u Ndryshua me Sukses']);
     }
 
     /**

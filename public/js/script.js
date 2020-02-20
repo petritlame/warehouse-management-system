@@ -259,6 +259,37 @@ $('.edit_client').click(function () {
         })
 
 });
+
+
+$('.edit_arka').click(function () {
+    var id = $(this).attr('data-id');
+    console.log(id);
+    $('#edit_arka_data').attr('disabled', true);
+    $('#edit_arka_nr_arketimi').attr('disabled', true);
+    $('#edit_arka_nr_pagese').attr('disabled', true);
+    $('#edit_arka_shpjegmi').attr('disabled', true);
+    $('#edit_arka_hyrjet').attr('disabled', true);
+    $('#edit_arka_daljet').attr('disabled', true);
+    $.get(BASE_URL+'/arka/single/'+id)
+        .done(function( data ) {
+                        $('#edit_arka_data').attr('disabled', false);
+                        $('#edit_arka_nr_arketimi').attr('disabled', false);
+                        $('#edit_arka_nr_pagese').attr('disabled', false);
+                        $('#edit_arka_shpjegmi').attr('disabled', false);
+                        $('#edit_arka_hyrjet').attr('disabled', false);
+                        $('#edit_arka_daljet').attr('disabled', false);
+
+                        $('#edit_arka_data').val(data[0].data);
+                        $('#edit_arka_nr_arketimi').val(data[0].nr_arketimi);
+                        $('#edit_arka_nr_pagese').val(data[0].nr_pagese);
+                        $('#edit_arka_shpjegmi').val(data[0].shpjegmi);
+                        $('#edit_arka_hyrjet').val(data[0].hyrjet);
+                        $('#edit_arka_daljet').val(data[0].daljet);
+
+                        $('#arka_id').val(data[0].id);
+                    })
+
+});
 function notifySuccess(data) {
     toastr.success(data);
     toastr.options = {
