@@ -9,6 +9,6 @@ class Debt extends Model
     protected $table = 'debt';
 
     protected $fillable = [
-        'value', 'pershkrimi', 'status'
+        'value', 'pershkrimi', 'status', 'type'
     ];
 }

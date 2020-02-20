@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Debt;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DebtController extends Controller
 {
@@ -14,13 +15,18 @@ class DebtController extends Controller
      */
     public function index()
     {
-        $total = 0;
+        $totalOut = 0;
+        $totalIn = 0;
         $debts = Debt::all();
-        $debtsTotal = Debt::where('status', 0)->get();
-        foreach ($debtsTotal as $item){
-            $total = $total + $item->value;
+        $debtsTotalOut = Debt::where(['status' => 0, 'type' => 0])->get();
+        $debtsTotalIn = Debt::where(['status' => 0, 'type' => 1])->get();
+        foreach ($debtsTotalOut as $item){
+            $totalOut = $totalOut + $item->value;
         }
-        return view('pages.debt')->with(['debts'=>$debts, 'totalDebt' => (float)$total]);
+        foreach ($debtsTotalIn as $item){
+            $totalIn = $totalIn + $item->value;
+        }
+        return view('pages.debt')->with(['debts'=>$debts, 'totalDebtOut' => (float)$totalOut, 'totalDebtIn' => (float)$totalIn]);
     }
 
     /**
@@ -104,6 +110,37 @@ class DebtController extends Controller
     public function clear($id){
         $clear = Debt::find($id)->update(['status' => 1]);
         if ($clear){
+            return redirect()->back()->with('data', ['msg' => 'Borxhi u Ndryshua me Sukses']);
+        }
+    }
+
+    public function remove(Request $request)
+    {
+        $rules = [
+            'value' => 'required',
+            'type' => 'required',
+        ];
+        $messages = [
+            'required' => ':attribute nuk mund te lihet bosh',
+        ];
+        $validatedData = $request->validate($rules, $messages);
+        $id = $request->id;
+        $vlera = $request->value;
+        $tipi = $request->type;
+        if ($tipi == 1) {
+            DB::table('debt')->where('id', '=', $id)->increment('value', $vlera);
+            DB::table('debt')->where('id', '=', $id)->update(['status' => 0]);
+            return redirect()->back()->with('data', ['msg' => 'Borxhi u Ndryshua me Sukses']);
+        } else {
+            $borxhi = DB::table('debt')->where('id', '=', $id)->first();
+
+            if ($borxhi->value < $vlera) {
+                return redirect()->back()->withErrors(['Kujdes, Vlera e borxhit Total me e vogel se vlera']);
+            }
+            DB::table('debt')->where('id', '=', $id)->decrement('value', $vlera);
+            if ($borxhi->value == $vlera) {
+                DB::table('debt')->where('id', '=', $id)->update(['status' => 1]);
+            }
             return redirect()->back()->with('data', ['msg' => 'Borxhi u Ndryshua me Sukses']);
         }
     }

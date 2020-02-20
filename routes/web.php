@@ -81,6 +81,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/debt/add', 'DebtController@store')->name('add_debt');
         Route::get('/debt/clear/{id}', 'DebtController@clear')->name('clear_debt');
         Route::get('/debt/delete/{id}', 'DebtController@destroy')->name('delete_debt');
+        Route::post('/debt/remove', 'DebtController@remove')->name('remove_debt');
 
         //rroga
         Route::get('/rrogat', 'RrogaController@index')->name('rrogat');
