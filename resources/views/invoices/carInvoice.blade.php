@@ -8,7 +8,7 @@
         .invoice-box {
             max-width: 800px;
             margin: auto;
-            padding: 30px;
+            padding: 10px;
             border: 1px solid #eee;
             box-shadow: 0 0 10px rgba(0, 0, 0, .15);
             font-size: 16px;
@@ -32,18 +32,11 @@
             text-align: right;
         }
 
-        .invoice-box table tr.top table td {
-            padding-bottom: 20px;
-        }
 
         .invoice-box table tr.top table td.title {
-            font-size: 27px;
-            line-height: 48px;
+            font-size: 20px;
+            line-height: 20px;
             color: #333;
-        }
-
-        .invoice-box table tr.information table td {
-            padding-bottom: 40px;
         }
 
         .invoice-box table tr.heading td {
@@ -82,7 +75,12 @@
                 text-align: center;
             }
         }
-
+        .products td{
+            padding-top: 0px !important;
+            padding-bottom: 0px !important;
+            padding-left: 5px !important;
+            padding-right: 5px !important;
+        }
         /** RTL **/
         .rtl {
             direction: rtl;
@@ -107,7 +105,7 @@
                 <table>
                     <tr>
                         <td class="title">
-                            <span>ECO AL CLEANING</span>
+                            <span>Fature Shoqeruese</span>
                         </td>
 
                         <td style="text-align: right">
@@ -126,14 +124,11 @@
                         <tr>
                             <td>
                                 ECO AL CLEANING.
-                                <br> Rruga Reshit Petrela,
-                                <br> Kompleksi Usluga, Pallati Nr.53
+                                <br> Rruga Islam Zeka, Astir
                             </td>
-
-                            <td style="text-align: right">
-                                <b>Fature Shoqeruse</b>
-                                <br> {{$agjenti}}
-                                <br> info@ecocleaning.com
+                            <td></td>
+                            <td>
+                                Agjenti: {{$agjenti}}
                             </td>
                         </tr>
                     </table>
@@ -141,7 +136,7 @@
             </tr>
         </table>
     </table>
-    <table>
+    <table border="1" class="products">
         <tr class="heading">
             <td>
                 Produkti
@@ -151,7 +146,7 @@
                 Sasia
             </td>
 
-            <td>
+            <td style="text-align : left">
                 Cmimi per njesi
             </td>
 
@@ -159,31 +154,33 @@
                 Vlera
             </td>
         </tr>
-@foreach($data as $item)
-        <tr class="item">
-            <td>
-               {{$item->product_name}}
-            </td>
+        @foreach($data as $item)
+            <tr class="item">
+                <td>
+                    {{$item->product_name}}
+                </td>
 
-            <td>
-                {{$item->quantity}}
-            </td>
+                <td style="text-align : right">
+                    {{$item->quantity}}
+                </td>
 
-            <td style="text-align : right">
-                {{$item->price}}
-            </td>
+                <td style="text-align : right">
+                    {{$item->price}}
+                </td>
 
-            <td style="text-align : right">
-                {{$item->price * $item->quantity}}
-            </td>
-        </tr>
-@endforeach
+                <td style="text-align : right">
+                    {{$item->price * $item->quantity}}
+                </td>
+            </tr>
+        @endforeach
         <tr class="total">
-            <td></td>
-            <td></td>
+            <td>Totali</td>
+            <td style="text-align : right">
+                {{$sasiaTotale}}
+            </td>
             <td></td>
             <td style="text-align : right">
-                Totali: {{$total}}
+              {{$total}}
             </td>
         </tr>
     </table>

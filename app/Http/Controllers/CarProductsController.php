@@ -205,13 +205,14 @@ class CarProductsController extends Controller
         $date = $request->data;
         $makina = $request->carId;
         $total = (float)0;
+        $sasiaTtoale = (int)0;
         $uniqueId = uniqid();
         $insertArray = [];
         $carProducts = DB::table('car_products')
             ->join('makinat', 'car_products.makina_id', '=', 'makinat.id')
             ->join('agents', 'makinat.agent_id', '=', 'agents.id')
             ->join('products', 'car_products.product_id', '=', 'products.id')
-            ->where(['car_products.data' => $date, 'car_products.makina_id' => $makina])
+            ->where(['car_products.makina_id' => $makina])
             ->select("car_products.id AS id", "car_products.data AS date",  "car_products.product_id AS product_id",  "makinat.targa as car_id",  "makinat.agent_id AS agent_id",  "products.emertimi AS product_name",  "agents.emri as agent_name AS agent_name", "agents.mbiemri AS agent_surname",  "car_products.sasia as quantity",  "products.cmim_shitje as price")
             ->get();
         foreach ($carProducts as $carProduct){
@@ -228,6 +229,7 @@ class CarProductsController extends Controller
             ];
             $agjenti = $carProduct->agent_name .' '. $carProduct->agent_surname;
             $total = $total + ($carProduct->quantity * $carProduct->price);
+            $sasiaTtoale = $sasiaTtoale + $carProduct->quantity;
         }
         $insertToMemory = DB::table('fatura_shoqerimit')->insert($insertArray);
         if($insertToMemory){
@@ -236,7 +238,7 @@ class CarProductsController extends Controller
             }
         }
         $flieName = $date.'-'.$makina.'-'.$uniqueId.'-fatura.pdf';
-        $pdf = PDF::loadView('invoices.carInvoice', ['data' => $carProducts, 'date' => $date, 'agjenti' => $agjenti, 'total'=>$total]);
+        $pdf = PDF::loadView('invoices.carInvoice', ['data' => $carProducts, 'date' => $date, 'agjenti' => $agjenti, 'total'=>$total, 'sasiaTotale' => $sasiaTtoale]);
         $pdf->save(public_path().'/invoices/'.$flieName);
         return $pdf->stream(public_path().'/invoices/'.$flieName);
     }
