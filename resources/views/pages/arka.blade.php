@@ -6,12 +6,13 @@
                 <?php for ($i = 0; $i < 12; ) {
                     $date_str = date('M', strtotime("+ ".$i++." months"));
                     $nowMonth = date('m');
+                    $date = date_parse($date_str);
                     if (!request()->route('month')){
                         $checkec = ($nowMonth == $i)? 'checked="checked"': '';
                     }else{
                         $checkec = (request()->route('month') == $i)? 'checked="checked"': '';
                     }
-                    echo "<option value=".$i." $checkec>".$date_str ." - ".\Carbon\Carbon::now()->format('Y')."</option>";
+                    echo "<option value=".$date['month']." $checkec>".$date_str ." - ".\Carbon\Carbon::now()->format('Y')."</option>";
                     } ?>
             </select>
             <a href="javascript:void(0)" class="btn btn-success btn-sm" id="changeMonth" style="position: absolute;left: 400px;top: 15px;">Ndrysho</a>
