@@ -43,8 +43,6 @@ class ArkaController extends Controller
     {
         $rules = [
             'data'    => 'required',
-            'nr_arketimi' => 'required|numeric',
-            'nr_pagese' => 'required|numeric',
             'hyrjet'       => 'required|numeric',
             'daljet'       => 'required|numeric',
         ];
@@ -61,8 +59,8 @@ class ArkaController extends Controller
         $arka = DB::table('arka')->insert(
             [
                 'data' => $newDate,
-                'nr_arketimi' => $request->nr_arketimi,
-                'nr_pagese' => $request->nr_pagese,
+                'nr_arketimi' => 0,
+                'nr_pagese' => 0,
                 'shpjegmi'=> $request->shpjegmi,
                 'hyrjet'=> $request->hyrjet,
                 'daljet' => $request->daljet,
@@ -115,8 +113,6 @@ class ArkaController extends Controller
     {
         $rules = [
             'data'    => 'required',
-            'nr_arketimi' => 'required|numeric',
-            'nr_pagese' => 'required|numeric',
             'hyrjet'       => 'required|numeric',
             'daljet'       => 'required|numeric',
         ];
@@ -131,8 +127,9 @@ class ArkaController extends Controller
         $newDate = date("d-m-Y", strtotime($request->data));
        $updateArray = [
             'data'    => $newDate,
-            'nr_arketimi' => $request->nr_arketimi,
-            'nr_pagese' => $request->nr_pagese,
+            'nr_arketimi' => 0,
+            'nr_pagese' => 0,
+            'shpjegmi'=> $request->shpjegmi,
             'hyrjet'       => $request->hyrjet,
             'daljet'       => $request->daljet,
        ];

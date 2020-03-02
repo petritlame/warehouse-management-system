@@ -25,8 +25,6 @@
                     <tr>
                         <th>ID</th>
                         <th>Data</th>
-                        <th>M. Arketimi Nr</th>
-                        <th>M. Pagese Nr</th>
                         <th>SHPJEGIMI</th>
                         <th>Hyrjet</th>
                         <th>Daljet</th>
@@ -38,8 +36,6 @@
                         <tr>
                             <td>{{$record->id}}</td>
                             <td style="width: 100px;">{{$record->data}}</td>
-                            <td>{{$record->nr_arketimi}}</td>
-                            <td>{{$record->nr_pagese}}</td>
                             <td>{{$record->shpjegmi}}</td>
                             <td style="background-color: #00ca0052">{{$record->hyrjet}}</td>
                             <td style="background-color: #ff00006b">{{($record->daljet)}}</td>
@@ -55,8 +51,6 @@
                     <tr>
                         <th>ID</th>
                         <th>Data</th>
-                        <th>M. Arketimi Nr</th>
-                        <th>M. Pagese Nr</th>
                         <th>SHPJEGIMI</th>
                         <th>Hyrjet</th>
                         <th>Daljet</th>
@@ -85,19 +79,6 @@
                                 <label for="name" class="col-sm-3 text-right control-label col-form-label">Data</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control data_arka" name="data" id="data" placeholder="dd/mm/yyyy">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="address" class="col-sm-3 text-right control-label col-form-label">M. Arketimi Nr</label>
-                                <div class="col-sm-9">
-                                    <input type="number" class="form-control" id="nr_arketimi" name="nr_arketimi" placeholder="M. Arketimi Nr">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="address" class="col-sm-3 text-right control-label col-form-label">M. Pagese Nr</label>
-                                <div class="col-sm-9">
-                                    <input type="number" step="0.01" class="form-control" id="nr_pagese" name="nr_pagese" placeholder="M. Pagese Nr">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -150,19 +131,6 @@
                                 <label for="name" class="col-sm-3 text-right control-label col-form-label">Data</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control data_arka" name="data" id="edit_arka_data" placeholder="dd/mm/yyyy">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="address" class="col-sm-3 text-right control-label col-form-label">M. Arketimi Nr</label>
-                                <div class="col-sm-9">
-                                    <input type="number" class="form-control" id="edit_arka_nr_arketimi" name="nr_arketimi" placeholder="M. Arketimi Nr">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="address" class="col-sm-3 text-right control-label col-form-label">M. Pagese Nr</label>
-                                <div class="col-sm-9">
-                                    <input type="number" step="0.01" class="form-control" id="edit_arka_nr_pagese" name="nr_pagese" placeholder="M. Pagese Nr">
                                 </div>
                             </div>
                             <div class="form-group row">
